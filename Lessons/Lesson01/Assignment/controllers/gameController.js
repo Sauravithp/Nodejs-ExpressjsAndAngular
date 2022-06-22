@@ -1,6 +1,8 @@
+const gamesData = require("../data/games.json");
+
 const getAll = function (req, res) {
     res.status(200);
-    res.json({ 'message': 'get' });
+    res.json(gamesData);
 }
 
 const post = function (req, res) {
@@ -8,7 +10,20 @@ const post = function (req, res) {
     res.json({ 'message': 'post' });
 }
 
-module.exports = { getAll, post }
+
+const getOne = function (req, res) {
+    let id=req.params.id;
+    let result=gamesData[id];
+    res.status(200);
+    res.json(result);
+}
+
+// gamesData.slice(2,4)
+
+
+
+
+module.exports = { getAll, post, getOne }
 
 
 
