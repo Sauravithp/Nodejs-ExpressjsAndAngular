@@ -27,13 +27,14 @@ function route(req, res) {
             break;
 
         default:
-            deafultUrl(req, res);
+            defaultUrl(req, res);
             break;
     }
 }
 
-function deafultUrl(req, res) {
+function defaultUrl(req, res) {
     let httpMethod = req.method;
+    
     switch (httpMethod) {
         case "GET":
             fs.readFile("index.html", function (err, buffer) {
@@ -42,6 +43,7 @@ function deafultUrl(req, res) {
                 res.end(buffer);
             })
             break;
+
         case "POST":
             res.setHeader("Content-Type", "application/json");
             res.writeHead(200);
