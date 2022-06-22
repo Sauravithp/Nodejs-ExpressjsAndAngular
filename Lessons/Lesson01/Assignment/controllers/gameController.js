@@ -1,14 +1,14 @@
-let getAll=function(req,res){
+const getAll = function (req, res) {
     res.status(200);
-    res.json({'message':'get'});
+    res.json({ 'message': 'get' });
 }
 
-let post=function(req,res){
+const post = function (req, res) {
     res.status(200);
-    res.json({'message':'post'});
+    res.json({ 'message': 'post' });
 }
 
-module.exports={getAll,post}
+module.exports = { getAll, post }
 
 
 
