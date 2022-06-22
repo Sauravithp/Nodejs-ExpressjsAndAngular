@@ -1,13 +1,19 @@
-const express=require("express");
-const path=require("path");
+const express = require("express");
+const routes = require("./routes");
+const path = require("path");
+
 require("dotenv").config();
 
-const app=express();
+const app = express();
 
-app.listen(process.env.PORT,function(){
-console.log("Listening to port",process.env.PORT);
+app.listen(process.env.PORT, function () {
+    console.log("Listening to port", process.env.PORT);
 })
 
+app.use("/", express.static(path.join(__dirname, process.env.EXPRESS_PUBLIC_FOLDER)));
 
-app.use(express.static(path.join(__dirname,process.env.EXPRESS_PUBLIC_FOLDER)));
+app.use("/api",routes);
+
+
+
 
