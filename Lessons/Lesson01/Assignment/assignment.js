@@ -8,5 +8,6 @@ app.listen(process.env.PORT,function(){
 console.log("Listening to port",process.env.PORT);
 })
 
+
 app.use(express.static(path.join(__dirname,process.env.EXPRESS_PUBLIC_FOLDER)));
 
