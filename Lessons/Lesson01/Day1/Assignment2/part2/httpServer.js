@@ -1,7 +1,6 @@
 const http = require("http");
 let routing=require("./routing");
 
-
 let startingPage = function (req, res) {
     routing(req,res);
 }
