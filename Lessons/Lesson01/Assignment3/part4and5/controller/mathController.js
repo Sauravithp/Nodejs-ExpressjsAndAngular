@@ -17,7 +17,8 @@ let divideNumbers=function(req,res){
     const result=num1/num2;
     console.log(result);
     res.status(200);
-    res.send(result);
+    res.setHeader("Content-Type","application/json");
+    res.json({'result':result});
 }
 
-module.exports={addNumbers};
+module.exports={addNumbers,divideNumbers};
