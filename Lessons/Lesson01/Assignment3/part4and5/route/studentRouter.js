@@ -7,7 +7,7 @@ router.route("/students")
 .get(studentController.getAll)
 .post(studentController.add);
 
-router.route("/students/:id")
+router.route("/sstudents/:id")
 .get(studentController.getOne)
 
 

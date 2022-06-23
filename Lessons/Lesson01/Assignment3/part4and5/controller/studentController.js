@@ -22,7 +22,7 @@ const add = function (req, res) {
     fs.writeFileSync(path.join(__dirname, "..", "data", "students.json"), JSON.stringify(body));
     res.status(200);
     res.setHeader("Content-Type", "application/json");
-    res.json({ 'message': 'Student Added successfully!' });
+    res.json({ 'message': 'Student(s) Added successfully!' });
 }
 
 module.exports = { add, getOne, getAll };
