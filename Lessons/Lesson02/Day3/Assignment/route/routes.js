@@ -9,7 +9,7 @@ router.route("/games")
     .get(gameController.getAll);
 
 router.route("/games/:id")
-    .get(gameController.getOne)
+    .delete(gameController.deleteGame)
 
 
 module.exports = router;
