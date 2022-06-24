@@ -28,9 +28,6 @@ const getAll = function (req, res) {
     //     res.status(process.env.STATUS_OK).json(docs);
     // });
 
-
-
-
     Game.find().skip(offset).limit(count).exec(function (err, response) {
         if (err) {
             console.log("err->", err);
