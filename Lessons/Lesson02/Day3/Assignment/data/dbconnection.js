@@ -1,15 +1,16 @@
 const MongoClient = require("mongodb").MongoClient;
+require("dotenv").config();
 
 let __connection = null;
 
 const open = function () {
     if (get() == null) {
-        MongoClient.connect("mongodb://localhost:27017/mwa", function (err, client) {
+        MongoClient.connect(process.env.DATABASE_URL, function (err, client) {
             if (err) {
                 console.log("db connection fail");
                 return;
             }
-            __connection = client.db("mwa");
+            __connection = client.db(process.env.DATABASE_NAME);
         });
     }
 

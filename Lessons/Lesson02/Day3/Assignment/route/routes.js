@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const gameController = require("../controllers/GameController");
+require("dotenv").config();
 
 
-
-router.route("/games")
-    .post(gameController.post)
+router.route(process.env.GAMES_URL)
+    .post(gameController.addNewGame)
     .get(gameController.getAll);
 
-router.route("/games/:id")
+router.route(process.env.GAMES_URL+process.env.PATH_PARAMS)
     .delete(gameController.deleteGame)
 
 
