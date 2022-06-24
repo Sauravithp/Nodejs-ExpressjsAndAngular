@@ -1,10 +1,30 @@
-const dbConnection=require("../data/dbconnection");
+const dbConnection = require("../data/dbconnection");
+
+const db = function database() {
+    return dbConnection.get();
+};
+
+const gamesCollection = function collection() {
+    return db.collection("meanGames");
+}
+
+
 
 const getAll = function (req, res) {
-    const db=dbConnection.get();
-    console.log("DB is",db);
-    res.status(200);
-    res.json(gamesData);
+    let offset = 0;
+    let count = 5;
+    if (req.query.offset && req.query.count) {
+        offset = parseInt(req.query.offset, 10);
+        count = parseInt(req.query.count, 10);
+    }
+    gamesCollection.find().skip(offset).limit(count).toArray(function (err, docs) {
+        if (err) {
+            console.log("debug err: ", err);
+            res.status(200).json({ 'error': err });
+        }
+        console.log("Found games", docs);
+        res.status(200).json(docs);
+    });
 }
 
 const post = function (req, res) {
@@ -12,19 +32,10 @@ const post = function (req, res) {
     res.json({ 'message': 'post' });
 }
 
-const getOne = function (req, res) {
-    let id=req.params.id;
-    let result=gamesData[id];
-    res.status(200);
-    res.json(result);
-}
-
-// gamesData.slice(2,4)
 
 
 
-
-module.exports = { getAll, post, getOne }
+module.exports = { getAll, post}
 
 
 
