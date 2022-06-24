@@ -31,19 +31,14 @@ const post = function (req, res) {
         res.status(200).json({ 'message': 'title  missing' });
     }
 
-
     if (newGame.price==null) {
         res.status(200).json({ 'message': 'price missing' });
     }
-    
+
     newGame.title=req.body.title;
     newGame.price=parseFloat(req.body.price,10);
     newGame.minPlayers=parseInt(req.body.minPlayers,10);
     newGame.minAge=parseInt(req.body.minAge,10);
-
-    console.log("body---->", newGame);
-
-    
 
 
     if (newGame.minPlayers<6 || newGame.minPlayers>11) {
