@@ -8,7 +8,7 @@ router.route(process.env.GAMES_URL)
     .post(gameController.addNewGame)
     .get(gameController.getAll);
 
-router.route(process.env.GAMES_URL+process.env.PATH_PARAMS)
+router.route(process.env.GAMES_URL+process.env.PATH_ID_PARAMS)
     .delete(gameController.deleteGame)
 
 

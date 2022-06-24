@@ -27,7 +27,6 @@ const getAll = function (req, res) {
 }
 
 const addNewGame = function (req, res) {
-
     const newGame = req.body;
     console.log("request body", newGame);
     if (newGame.title == null) {
@@ -44,7 +43,6 @@ const addNewGame = function (req, res) {
     newGame.price = parseFloat(req.body.price, 10);
     newGame.minPlayers = parseInt(req.body.minPlayers, 10);
     newGame.minAge = parseInt(req.body.minAge, 10);
-
 
     if (newGame.minPlayers < 6 || newGame.minPlayers > 11) {
         console.log("minplayer->", newGame.minPlayers);
