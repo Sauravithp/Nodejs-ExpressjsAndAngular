@@ -29,6 +29,8 @@ const getAll = function (req, res) {
     // });
 
 
+
+
     Game.find().skip(offset).limit(count).exec(function (err, response) {
         if (err) {
             console.log("err->", err);
@@ -38,16 +40,24 @@ const getAll = function (req, res) {
         res.status(process.env.STATUS_OK).json({ 'result': response });
     });
 
+// if(!mongoose.isValidObjectId(id)){
+// console.log("Invalid Object Id",err);
+// res.status(400).json({'message':"Invalid "});
+// return;
 
-    // Game.findById(gameID).exec(function (err, response) {
+// Game.findById(gameID).exec(function (err, response) {
     //     if (err) {
     //         console.log("err->", err);
     //         res.status(process.env.STATUS_OK).json({ 'message': 'Internal Server error' });
-    //     }
-    //     console.log(response);
-    //     res.status(process.env.STATUS_OK).json({ 'result': response });
+    //     }else{
+        // console.log(response);
+        //     res.status(process.env.STATUS_OK).json({ 'result': response });
+    // }
+    //     
     // });
-}
+
+};
+    
 
 const addNewGame = function (req, res) {
     const newGame = req.body;
