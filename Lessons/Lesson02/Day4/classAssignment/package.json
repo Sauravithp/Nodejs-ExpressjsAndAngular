@@ -1,0 +1,21 @@
+{
+  "name": "classassignment",
+  "version": "1.0.0",
+  "description": "Day 4 class work",
+  "main": "main.js",
+  "scripts": {
+    "start":"node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "express"
+  ],
+  "author": "Sauravi Thapa",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongodb": "^4.7.0"
+  }
+}
