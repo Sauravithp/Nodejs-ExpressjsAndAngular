@@ -18,31 +18,35 @@ let getAll = function (req, res) {
     PHP.find().skip(offset).limit(count).exec(function (err, php) {
         if (err) {
             console.log("Error", err);
-            res.status(500).json({ 'message': "Internal Server Error" });
+            response.status = 500;
+            response.message = "Internal Server Error";
         } else {
             console.log("PHP found");
-            res.status(response.status).json({ 'message': php });
-
+            response.message = php;
         }
+        res.status(response.status).json(response.message);
     });
 }
 
 let getPhpById = function (req, res) {
 
     const phpId = req.params.id;
-    if (mongoose.isValidObjectId(phpId)) {
+    if (!mongoose.isValidObjectId(phpId)) {
         console.log("Invalid id: ", phpId);
         res.status(500).json({ 'message': "Invalid id: ", phpId });
     } else {
         PHP.findById(phpId).exec(function (err, php) {
             if (err) {
                 console.log("Error", err);
-                res.status(500).json({ 'message': "Internal Server Error" });
+                response.status = 500;
+                response.message = "Internal Server Error";
             } else {
                 console.log("PHP found", php);
-                res.status(response.status).json({ 'message': php });
+                response.message = php;
             }
+            res.status(response.status).json(response.message);
         });
+
     }
 }
 
@@ -64,35 +68,41 @@ let save = function (req, res) {
         }
     }
 
-    PHP.create(php,function (err, php) {
+    console.log(php);
+
+    PHP.create(php, function (err, php) {
         if (err) {
             console.log("Error", err);
-            res.status(response.status).json({ 'message': 'Internal Server Error' });
+            response.status = 500;
+            response.message = "Internal Server Error";
         } else {
             console.log("save new php");
-            res.status(201).json({ 'result': php });
+            response.message = php;
         }
+        res.status(response.status).json(response.message);
     });
 
 }
 
-let deletePhp=function(req,resp){
+let deletePhp = function (req, resp) {
 
-    const phpId=req.params.id;
-    if(mongoose.isValidObjectId(phpId)){
-       console.log("Object ID not valid",phpId);
-       resp.status(500).json({'message':"Object ID not valid",phpId});
-    }else{
-        PHP.findByIdAndDelete(phpId).exec(function(err,php){
-            if(err){
-                console.log("Error",err);
-                resp.status(500).json({'message':"Invalid id:",phpId});
-            }else{
-                console.log("Delete php",phpId);
-                resp.status(200).json({ 'result': php });
+    const phpId = req.params.id;
+    if (!mongoose.isValidObjectId(phpId)) {
+        console.log("Object ID not valid", phpId);
+        resp.status(500).json({ 'message': "Object ID not valid", phpId });
+    } else {
+        PHP.findByIdAndDelete(phpId).exec(function (err, php) {
+            if (err) {
+                console.log("Error", err);
+                response.status = 500;
+                response.message = "Internal Server Error";
+            } else {
+                console.log("Delete php", phpId);
+                response.message = php;
             }
+            res.status(response.status).json(response.message);
         })
     }
 }
 
-module.exports = { getAll, getPhpById, save,deletePhp}
+module.exports = { getAll, getPhpById, save, deletePhp }
