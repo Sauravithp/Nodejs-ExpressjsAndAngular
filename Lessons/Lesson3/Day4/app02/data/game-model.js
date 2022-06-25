@@ -1,12 +1,12 @@
-const mongoose=require("mongoose");
+const mongoose = require("mongoose");
 
-const gameSchema=mongoose.Schema({
-    "title":  {
+const gameSchema = mongoose.Schema({
+    "title": {
         type: String,
-       required: true
+        required: true
     },
     "year": Number,
-    "rate":  {
+    "rate": {
         type: Number,
         min: 6,
         max: 99
@@ -21,7 +21,7 @@ const gameSchema=mongoose.Schema({
         min: 6,
         max: 99
     },
-    "price":Number,
+    "price": Number,
     "minAge": {
         type: Number,
         min: 6,
@@ -30,4 +30,6 @@ const gameSchema=mongoose.Schema({
     "designers": [String]
 });
 
-mongoose.model("Game",gameSchema,"meanGames");
+mongoose.model("Game", gameSchema, "meanGames");
+
+
