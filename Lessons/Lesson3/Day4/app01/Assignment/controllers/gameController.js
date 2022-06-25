@@ -42,6 +42,11 @@ const getAll = function (req, res) {
 // res.status(400).json({'message':"Invalid "});
 // return;
 
+const resp={
+    status: 200,
+    message:"complete"
+};
+
 // Game.findById(gameID).exec(function (err, response) {
     //     if (err) {
     //         console.log("err->", err);
@@ -120,9 +125,11 @@ const addNewGame = function (req, res) {
 }
 
 const deleteGame = function (req, res) {
+
     const objectId = req.params.id;
     const db = dbConnection.get();
     const gamesCollection = db.collection(process.env.DATABASE_COLLECTION_NAME);
+
     if (objectId === null) {
         res.status(process.env.STATUS_OK).json({ 'message': 'Delete Id missing' });
         return;
@@ -136,7 +143,6 @@ const deleteGame = function (req, res) {
         }
         res.status(process.env.STATUS_OK).json({ 'result': response });
     });
-
 
 }
 
