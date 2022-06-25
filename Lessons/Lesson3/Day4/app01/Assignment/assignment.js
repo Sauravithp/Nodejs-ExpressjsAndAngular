@@ -1,15 +1,15 @@
 require("./data/db");
 require("./data/dbconnection").open();
-
-const express = require("express");
-const routes = require("./route/routes.js");
-const path = require("path");
 require("dotenv").config();
+const path = require("path");
+const express = require("express");
 
 const app = express();
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+const routes = require("./route/routes.js");
+
 
 const server=app.listen(process.env.PORT, function () {
     const portNumber=server.address().port;
