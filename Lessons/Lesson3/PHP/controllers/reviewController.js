@@ -136,7 +136,7 @@ let deleteAllReview = function (req, res) {
                         response.message = process.env.INTERNAL_SERVER_ERROR;
                     } else {
                         console.log("Review Controller line -> 138  DELETE REVIEWS ");
-                        response.message = updatePhp;
+                        response.message = process.env.DELETED_SUCCESSFULLY;
                     }
                 });
             }
@@ -178,7 +178,7 @@ let updateReview=function(req,res){
                         response.message = process.env.INTERNAL_SERVER_ERROR;
                     } else{
                         console.log("Review Controller line -> 104 ", updateReview);
-                        response.message = updateReview;
+                        response.message = process.env.UPDATED_SUCCESSFULLY;
                     }
                 })
             }
@@ -218,7 +218,7 @@ let deleteReviewById = function (req, res) {
                         response.message = process.env.INTERNAL_SERVER_ERROR;
                     } else{
                         console.log("Review Controller line -> 104 ", updated);
-                        response.message = updated;
+                        response.message = process.env.DELETED_SUCCESSFULLY;
                     }
                 });
             }
@@ -262,7 +262,7 @@ let updateReviewById = function (req, res) {
                         response.message = process.env.INTERNAL_SERVER_ERROR;
                     } else{
                         console.log("Review Controller line -> 104 ", updated);
-                        response.message = updated;
+                        response.message = process.env.UPDATED_SUCCESSFULLY;
                     }
                 });
             }

@@ -116,7 +116,7 @@ let deletePhp = function (req, resp) {
                 response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
             }else {
                 console.log(process.env.DELETE_PHP_MESSAGE, phpId);
-                response.message = php;
+                response.message = process.env.DELETED_SUCCESSFULLY;
             }
             resp.status(response.status).json(response.message);
         })
@@ -157,7 +157,7 @@ let update = function (req, res) {
                         response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
                         response.message = process.env.INTERNAL_SERVER_ERROR;
                     } else {
-                        response.message = php;
+                        response.message = process.env.UPDATED_SUCCESSFULLY;
                     }
                 })
             }
@@ -209,7 +209,7 @@ let updateAll = function (req, res) {
                         response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
                         response.message = process.env.INTERNAL_SERVER_ERROR;
                     } else {
-                        response.message = php;
+                        response.message = process.env.UPDATED_SUCCESSFULLY;
                     }
                 })
             }
