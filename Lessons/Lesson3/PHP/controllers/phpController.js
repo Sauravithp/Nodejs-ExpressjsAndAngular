@@ -9,12 +9,20 @@ let response = {
 
 
 let getAll = function (req, res) {
+
+    if (isNaN(req.query.offset) || isNaN(req.query.count)) {
+        res.status(400).json({"message": "QueryString Offset and Count should be numbers"});
+        return;
+    }
+
     let offset = process.env.DEFAULT_OFFSET;
     let count = process.env.DEAFULT_COUNT;
+
     if (req.query.offset && req.query.count) {
         offset = parseInt(req.query.offset, 10);
-        count = parseInt(req.query.count);
+        count = parseInt(req.query.count,10);
     }
+
     PHP.find().skip(offset).limit(count).exec(function (err, php) {
         if (err) {
             console.log(process.env.ERROR, err);
