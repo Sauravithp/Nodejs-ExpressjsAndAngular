@@ -10,6 +10,7 @@ Router.route(process.env.PHP_URL)
 Router.route(process.env.PHP_URL+process.env.PATH_ID_PARAMS)
     .get(phpController.getPhpById)
     .delete(phpController.deletePhp)
-    .patch(phpController.update);
+    .patch(phpController.update)
+    .put(phpController.updateAll);
 
 module.exports = Router;

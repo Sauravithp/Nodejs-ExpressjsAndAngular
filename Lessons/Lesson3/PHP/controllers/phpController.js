@@ -201,4 +201,4 @@ let updateAll = function (req, res) {
     }
 }
 
-    module.exports = { getAll, getPhpById, save, deletePhp,update }
+    module.exports = { getAll, getPhpById, save, deletePhp,update,updateAll }
