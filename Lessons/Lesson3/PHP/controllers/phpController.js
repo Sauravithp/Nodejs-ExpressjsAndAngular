@@ -229,4 +229,7 @@ let updateAll = function (req, res) {
 
 
 
-    module.exports = { getAll, getPhpById, save, deletePhp,update,updateAll }
+    module.exports = { getAll, getPhpById,
+         save, 
+         deletePhp,
+         update,updateAll }

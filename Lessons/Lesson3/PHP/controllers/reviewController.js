@@ -272,4 +272,6 @@ let updateReviewById = function (req, res) {
     }
 }
 
-module.exports = { save, getAll, getById, deleteAllReview,deleteReviewById,updateReview ,updateReviewById}
+module.exports = { save, getAll, getById,
+     deleteAllReview,deleteReviewById,
+     updateReview ,updateReviewById}
