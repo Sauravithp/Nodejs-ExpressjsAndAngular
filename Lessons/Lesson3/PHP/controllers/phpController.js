@@ -34,7 +34,7 @@ let getPhpById = function (req, res) {
     if (!mongoose.isValidObjectId(phpId)) {
         console.log(process.env.INVALID_ID_MESSAGE, phpId);
         res.status(process.env.INTERNAL_SERVER_ERROR_STATUS_CODE)
-        .json({ 'message': process.env.INVALID_ID_MESSAGE, phpId });
+            .json({ 'message': process.env.INVALID_ID_MESSAGE, phpId });
     } else {
         PHP.findById(phpId).exec(function (err, php) {
             if (err) {
@@ -91,7 +91,7 @@ let deletePhp = function (req, resp) {
     if (!mongoose.isValidObjectId(phpId)) {
         console.log(process.env.INVALID_ID_MESSAGE, phpId);
         resp.status(process.env.INTERNAL_SERVER_ERROR_STATUS_CODE)
-        .json({ 'message': process.env.INVALID_ID_MESSAGE, phpId });
+            .json({ 'message': process.env.INVALID_ID_MESSAGE, phpId });
     } else {
         PHP.findByIdAndDelete(phpId).exec(function (err, php) {
             if (err) {
@@ -107,4 +107,44 @@ let deletePhp = function (req, resp) {
     }
 }
 
-module.exports = { getAll, getPhpById, save, deletePhp }
+let update = function (req, res) {
+
+    const phpUpdate = {
+        name: req.body.name,
+        language: req.body.language
+    }
+
+    console.log(phpUpdate);
+
+    const phpId = req.params.id;
+    if (!mongoose.isValidObjectId(phpId)) {
+        console.log(process.env.INVALID_ID_MESSAGE, phpId);
+        res.status(process.env.INTERNAL_SERVER_ERROR_STATUS_CODE)
+            .json({ 'message': process.env.INVALID_ID_MESSAGE, phpId });
+    } else {
+        PHP.findById(phpId).exec(function (err, php) {
+            if (err) {
+                console.log(process.env.ERROR, err);
+                response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
+                response.message = process.env.INTERNAL_SERVER_ERROR;
+            } else {
+                console.log(process.env.PHP_FOUND);
+                php.name = phpUpdate.name;
+                php.language = phpUpdate.language;
+                php.save(function (err) {
+                    if (err) {
+                        console.log(process.env.ERROR, err);
+                        response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
+                        response.message = process.env.INTERNAL_SERVER_ERROR;
+                    } else {
+                        response.message = php;
+                    }
+                })
+            }
+            res.status(response.status).json(response.message);
+        });
+
+    }
+}
+
+    module.exports = { getAll, getPhpById, save, deletePhp,update }

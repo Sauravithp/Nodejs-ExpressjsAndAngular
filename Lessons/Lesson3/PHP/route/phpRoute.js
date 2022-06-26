@@ -5,10 +5,11 @@ const phpController = require("../controllers/phpController.js");
 
 Router.route(process.env.PHP_URL)
     .get(phpController.getAll)
-    .post(phpController.save)
+    .post(phpController.save);
 
 Router.route(process.env.PHP_URL+process.env.PATH_ID_PARAMS)
     .get(phpController.getPhpById)
     .delete(phpController.deletePhp)
+    .patch(phpController.update);
 
 module.exports = Router;
