@@ -11,11 +11,11 @@ app.use(express.urlencoded({'extended':true}));
 
 const phpRoute=require('./route/phpRoute.js');
 
-const server=app.listen(3000,function(){
+const server=app.listen(process.env.PORT,function(){
     const portNumber=server.address().port;
-    console.log("Listening to port: ",portNumber);
+    console.log(process.env.START_MSG,portNumber);
 });
 
-app.use("/api",phpRoute);
+app.use(process.env.API_URL,phpRoute);
 
 

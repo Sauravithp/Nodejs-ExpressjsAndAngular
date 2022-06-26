@@ -3,11 +3,11 @@ const Router = express.Router();
 require("dotenv").config();
 const phpController = require("../controllers/phpController.js");
 
-Router.route("/php")
+Router.route(process.env.PHP_URL)
     .get(phpController.getAll)
     .post(phpController.save)
 
-Router.route("/php/:id")
+Router.route(process.env.PHP_URL+process.env.PATH_ID_PARAMS)
     .get(phpController.getPhpById)
     .delete(phpController.deletePhp)
 

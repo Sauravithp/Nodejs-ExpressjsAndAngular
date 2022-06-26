@@ -3,8 +3,8 @@ const PHP = mongoose.model("Series");
 require("dotenv").config();
 
 let response = {
-    status: 200,
-    message: "Success"
+    status: process.env.STATUS_OK,
+    message: process.env.SUCCESS
 }
 
 
@@ -17,11 +17,11 @@ let getAll = function (req, res) {
     }
     PHP.find().skip(offset).limit(count).exec(function (err, php) {
         if (err) {
-            console.log("Error", err);
-            response.status = 500;
-            response.message = "Internal Server Error";
+            console.log(process.env.ERROR, err);
+            response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
+            response.message = process.env.INTERNAL_SERVER_ERROR;
         } else {
-            console.log("PHP found");
+            console.log(process.env.PHP_FOUND);
             response.message = php;
         }
         res.status(response.status).json(response.message);
@@ -32,16 +32,17 @@ let getPhpById = function (req, res) {
 
     const phpId = req.params.id;
     if (!mongoose.isValidObjectId(phpId)) {
-        console.log("Invalid id: ", phpId);
-        res.status(500).json({ 'message': "Invalid id: ", phpId });
+        console.log(process.env.INVALID_ID_MESSAGE, phpId);
+        res.status(process.env.INTERNAL_SERVER_ERROR_STATUS_CODE)
+        .json({ 'message': process.env.INVALID_ID_MESSAGE, phpId });
     } else {
         PHP.findById(phpId).exec(function (err, php) {
             if (err) {
-                console.log("Error", err);
-                response.status = 500;
-                response.message = "Internal Server Error";
+                console.log(process.env.ERROR, err);
+                response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
+                response.message = process.env.INTERNAL_SERVER_ERROR;
             } else {
-                console.log("PHP found", php);
+                console.log(process.env.PHP_FOUND);
                 response.message = php;
             }
             res.status(response.status).json(response.message);
@@ -72,11 +73,11 @@ let save = function (req, res) {
 
     PHP.create(php, function (err, php) {
         if (err) {
-            console.log("Error", err);
-            response.status = 500;
-            response.message = "Internal Server Error";
+            console.log(process.env.ERROR, err);
+            response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
+            response.message = process.env.INTERNAL_SERVER_ERROR;
         } else {
-            console.log("save new php");
+            console.log(process.env.SAVE_NEW_PHP);
             response.message = php;
         }
         res.status(response.status).json(response.message);
@@ -88,16 +89,17 @@ let deletePhp = function (req, resp) {
 
     const phpId = req.params.id;
     if (!mongoose.isValidObjectId(phpId)) {
-        console.log("Object ID not valid", phpId);
-        resp.status(500).json({ 'message': "Object ID not valid", phpId });
+        console.log(process.env.INVALID_ID_MESSAGE, phpId);
+        resp.status(process.env.INTERNAL_SERVER_ERROR_STATUS_CODE)
+        .json({ 'message': process.env.INVALID_ID_MESSAGE, phpId });
     } else {
         PHP.findByIdAndDelete(phpId).exec(function (err, php) {
             if (err) {
-                console.log("Error", err);
-                response.status = 500;
-                response.message = "Internal Server Error";
+                console.log(process.env.ERROR, err);
+                response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
+                response.message = process.env.INTERNAL_SERVER_ERROR;
             } else {
-                console.log("Delete php", phpId);
+                console.log(process.env.DELETE_PHP_MESSAGE, phpId);
                 response.message = php;
             }
             res.status(response.status).json(response.message);
