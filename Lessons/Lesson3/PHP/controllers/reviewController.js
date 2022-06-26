@@ -3,8 +3,8 @@ const PHP = mongoose.model("Series");
 require("dotenv").config();
 
 const response = {
-    status: 200,
-    message: "success"
+    status: process.env.STATUS_OK,
+    message: process.env.SUCCESS
 }
 
 const save = function (req, res) {
