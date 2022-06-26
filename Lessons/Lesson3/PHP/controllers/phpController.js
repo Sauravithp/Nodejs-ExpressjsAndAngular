@@ -9,8 +9,8 @@ let response = {
 
 
 let getAll = function (req, res) {
-    let offset = 0;
-    let count = 5;
+    let offset = process.env.DEFAULT_OFFSET;
+    let count = process.env.DEAFULT_COUNT;
     if (req.query.offset && req.query.count) {
         offset = parseInt(req.query.offset, 10);
         count = parseInt(req.query.count);
@@ -20,8 +20,13 @@ let getAll = function (req, res) {
             console.log(process.env.ERROR, err);
             response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
             response.message = process.env.INTERNAL_SERVER_ERROR;
+        } else if(php==null){
+            console.log("Php not found");
+            response.message = process.env.CONTENT_NOT_FOUND;
+            response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
         } else {
             console.log(process.env.PHP_FOUND);
+            console.log(php);
             response.message = php;
         }
         res.status(response.status).json(response.message);
@@ -41,7 +46,11 @@ let getPhpById = function (req, res) {
                 console.log(process.env.ERROR, err);
                 response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
                 response.message = process.env.INTERNAL_SERVER_ERROR;
-            } else {
+            }else if(php==null){
+                console.log("Php not found");
+                response.message = process.env.CONTENT_NOT_FOUND;
+                response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
+            }else {
                 console.log(process.env.PHP_FOUND);
                 response.message = php;
             }
@@ -53,20 +62,23 @@ let getPhpById = function (req, res) {
 
 
 let save = function (req, res) {
+    console.log(req);
+
+    const review=req.body.review;
+
+    console.log("review->",review);
+    const cast=req.body.cast;
+    console.log("cast->",cast);
+    const language=req.body.language;
+    console.log("language->",language);
 
     const php = {
         name: req.body.name,
-        language: req.body.language,
+        language: language,
         genre: req.body.genre,
         presentYear: req.body.presentYear,
-        review: {
-            rating: req.body.review.rating,
-            description: req.body.review.description
-        },
-        cast: {
-            name: req.body.cast.name,
-            gender: req.body.cast.gender
-        }
+        review: review,
+        cast: cast
     }
 
     console.log(php);
@@ -98,11 +110,15 @@ let deletePhp = function (req, resp) {
                 console.log(process.env.ERROR, err);
                 response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
                 response.message = process.env.INTERNAL_SERVER_ERROR;
-            } else {
+            } else if(php==null){
+                console.log("Php not found");
+                response.message = process.env.CONTENT_NOT_FOUND;
+                response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
+            }else {
                 console.log(process.env.DELETE_PHP_MESSAGE, phpId);
                 response.message = php;
             }
-            res.status(response.status).json(response.message);
+            resp.status(response.status).json(response.message);
         })
     }
 }
@@ -127,6 +143,10 @@ let update = function (req, res) {
                 console.log(process.env.ERROR, err);
                 response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
                 response.message = process.env.INTERNAL_SERVER_ERROR;
+            }else if(php==null){
+                console.log("Php not found");
+                response.message = process.env.CONTENT_NOT_FOUND;
+                response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
             } else {
                 console.log(process.env.PHP_FOUND);
                 php.name = phpUpdate.name;
@@ -154,14 +174,8 @@ let updateAll = function (req, res) {
         language: req.body.language,
         genre: req.body.genre,
         presentYear: req.body.presentYear,
-        review: {
-            rating: req.body.review.rating,
-            description: req.body.review.description
-        },
-        cast: {
-            name: req.body.cast.name,
-            gender: req.body.cast.gender
-        }
+        review: req.body.review,
+        cast: req.body.cast
     }
 
     console.log(phpUpdate);
@@ -177,7 +191,11 @@ let updateAll = function (req, res) {
                 console.log(process.env.ERROR, err);
                 response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
                 response.message = process.env.INTERNAL_SERVER_ERROR;
-            } else {
+            } else if(php==null){
+                console.log("Php not found");
+                response.message = process.env.CONTENT_NOT_FOUND;
+                response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
+            }else {
                 console.log(process.env.PHP_FOUND);
                 php.name = phpUpdate.name;
                 php.language = phpUpdate.language;
@@ -200,5 +218,7 @@ let updateAll = function (req, res) {
 
     }
 }
+
+
 
     module.exports = { getAll, getPhpById, save, deletePhp,update,updateAll }
