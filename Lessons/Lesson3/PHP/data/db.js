@@ -1,7 +1,8 @@
 const mongoose=require("mongoose");
 require("./php-model.js");
+require("dotenv").config();
 
-mongoose.connect("mongodb://localhost:27017/mwa");
+mongoose.connect(process.env.DATABASE_URL);
 
 mongoose.connection.on("connected",function(){
     console.log("Mongoose connected with database");

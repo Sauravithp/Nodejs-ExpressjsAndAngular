@@ -1,4 +1,5 @@
 const mongoose=require("mongoose");
+require("dotenv").config();
 
 
 let reviewSchema=new mongoose.Schema({
@@ -29,4 +30,4 @@ let seriesSchema=mongoose.Schema({
 
 
 
-mongoose.model("Series",seriesSchema,"series");
+mongoose.model(process.env.MODEL_NAME,seriesSchema,process.env.DATABASE_COLLECTION_NAME);
