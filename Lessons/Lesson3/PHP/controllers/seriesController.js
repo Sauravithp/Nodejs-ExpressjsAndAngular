@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const PHP = mongoose.model("Series");
+const SERIES = mongoose.model("Series");
 require("dotenv").config();
 
 let response = {
@@ -23,44 +23,44 @@ let getAll = function (req, res) {
         count = parseInt(req.query.count,10);
     }
 
-    PHP.find().skip(offset).limit(count).exec(function (err, php) {
+    SERIES.find().skip(offset).limit(count).exec(function (err, series) {
         if (err) {
             console.log(process.env.ERROR, err);
             response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
             response.message = process.env.INTERNAL_SERVER_ERROR;
-        } else if(php==null){
-            console.log("Php not found");
+        } else if(series==null){
+            console.log("Series not found");
             response.message = process.env.CONTENT_NOT_FOUND;
             response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
         } else {
-            console.log(process.env.PHP_FOUND);
-            console.log(php);
-            response.message = php;
+            console.log(process.env.SERIES_FOUND);
+            console.log(series);
+            response.message = series;
         }
         res.status(response.status).json(response.message);
     });
 }
 
-let getPhpById = function (req, res) {
+let getSeriesById = function (req, res) {
 
-    const phpId = req.params.id;
-    if (!mongoose.isValidObjectId(phpId)) {
-        console.log(process.env.INVALID_ID_MESSAGE, phpId);
+    const seriesId = req.params.id;
+    if (!mongoose.isValidObjectId(seriesId)) {
+        console.log(process.env.INVALID_ID_MESSAGE, seriesId);
         res.status(process.env.INTERNAL_SERVER_ERROR_STATUS_CODE)
-            .json({ 'message': process.env.INVALID_ID_MESSAGE, phpId });
+            .json({ 'message': process.env.INVALID_ID_MESSAGE, seriesId });
     } else {
-        PHP.findById(phpId).exec(function (err, php) {
+        SERIES.findById(seriesId).exec(function (err, series) {
             if (err) {
                 console.log(process.env.ERROR, err);
                 response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
                 response.message = process.env.INTERNAL_SERVER_ERROR;
-            }else if(php==null){
-                console.log("Php not found");
+            }else if(series==null){
+                console.log("Series not found");
                 response.message = process.env.CONTENT_NOT_FOUND;
                 response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
             }else {
-                console.log(process.env.PHP_FOUND);
-                response.message = php;
+                console.log(process.env.SERIES_FOUND);
+                response.message = series;
             }
             res.status(response.status).json(response.message);
         });
@@ -80,7 +80,7 @@ let save = function (req, res) {
     const language=req.body.language;
     console.log("language->",language);
 
-    const php = {
+    const series = {
         name: req.body.name,
         language: language,
         genre: req.body.genre,
@@ -89,41 +89,41 @@ let save = function (req, res) {
         cast: cast
     }
 
-    console.log(php);
+    console.log(series);
 
-    PHP.create(php, function (err, php) {
+    SERIES.create(series, function (err, series) {
         if (err) {
             console.log(process.env.ERROR, err);
             response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
             response.message = process.env.INTERNAL_SERVER_ERROR;
         } else {
-            console.log(process.env.SAVE_NEW_PHP);
-            response.message = php;
+            console.log(process.env.SAVE_NEW_SERIES);
+            response.message = series;
         }
         res.status(response.status).json(response.message);
     });
 
 }
 
-let deletePhp = function (req, resp) {
+let deleteSeries = function (req, resp) {
 
-    const phpId = req.params.id;
-    if (!mongoose.isValidObjectId(phpId)) {
-        console.log(process.env.INVALID_ID_MESSAGE, phpId);
+    const seriesId = req.params.id;
+    if (!mongoose.isValidObjectId(seriesId)) {
+        console.log(process.env.INVALID_ID_MESSAGE, seriesId);
         resp.status(process.env.INTERNAL_SERVER_ERROR_STATUS_CODE)
-            .json({ 'message': process.env.INVALID_ID_MESSAGE, phpId });
+            .json({ 'message': process.env.INVALID_ID_MESSAGE, seriesId });
     } else {
-        PHP.findByIdAndDelete(phpId).exec(function (err, php) {
+        SERIES.findByIdAndDelete(seriesId).exec(function (err, series) {
             if (err) {
                 console.log(process.env.ERROR, err);
                 response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
                 response.message = process.env.INTERNAL_SERVER_ERROR;
-            } else if(php==null){
-                console.log("Php not found");
+            } else if(series==null){
+                console.log("Series not found");
                 response.message = process.env.CONTENT_NOT_FOUND;
                 response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
             }else {
-                console.log(process.env.DELETE_PHP_MESSAGE, phpId);
+                console.log(process.env.DELETE_SERIES_MESSAGE, seriesId);
                 response.message = process.env.DELETED_SUCCESSFULLY;
             }
             resp.status(response.status).json(response.message);
@@ -133,33 +133,33 @@ let deletePhp = function (req, resp) {
 
 let update = function (req, res) {
 
-    const phpUpdate = {
+    const seriesUpdate = {
         name: req.body.name,
         language: req.body.language
     }
 
-    console.log(phpUpdate);
+    console.log(seriesUpdate);
 
-    const phpId = req.params.id;
-    if (!mongoose.isValidObjectId(phpId)) {
-        console.log(process.env.INVALID_ID_MESSAGE, phpId);
+    const seriesId = req.params.id;
+    if (!mongoose.isValidObjectId(seriesId)) {
+        console.log(process.env.INVALID_ID_MESSAGE, seriesId);
         res.status(process.env.INTERNAL_SERVER_ERROR_STATUS_CODE)
-            .json({ 'message': process.env.INVALID_ID_MESSAGE, phpId });
+            .json({ 'message': process.env.INVALID_ID_MESSAGE, seriesId });
     } else {
-        PHP.findById(phpId).exec(function (err, php) {
+        SERIES.findById(seriesId).exec(function (err, series) {
             if (err) {
                 console.log(process.env.ERROR, err);
                 response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
                 response.message = process.env.INTERNAL_SERVER_ERROR;
-            }else if(php==null){
-                console.log("Php not found");
+            }else if(series==null){
+                console.log("Series not found");
                 response.message = process.env.CONTENT_NOT_FOUND;
                 response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
             } else {
-                console.log(process.env.PHP_FOUND);
-                php.name = phpUpdate.name;
-                php.language = phpUpdate.language;
-                php.save(function (err) {
+                console.log(process.env.SERIES_FOUND);
+                series.name = seriesUpdate.name;
+                series.language = seriesUpdate.language;
+                series.save(function (err) {
                     if (err) {
                         console.log(process.env.ERROR, err);
                         response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
@@ -177,7 +177,7 @@ let update = function (req, res) {
 
 let updateAll = function (req, res) {
 
-    const phpUpdate = {
+    const seriesUpdate = {
         name: req.body.name,
         language: req.body.language,
         genre: req.body.genre,
@@ -186,32 +186,32 @@ let updateAll = function (req, res) {
         cast: req.body.cast
     }
 
-    console.log(phpUpdate);
+    console.log(seriesUpdate);
 
-    const phpId = req.params.id;
-    if (!mongoose.isValidObjectId(phpId)) {
-        console.log(process.env.INVALID_ID_MESSAGE, phpId);
+    const seriesId = req.params.id;
+    if (!mongoose.isValidObjectId(seriesId)) {
+        console.log(process.env.INVALID_ID_MESSAGE, seriesId);
         res.status(process.env.INTERNAL_SERVER_ERROR_STATUS_CODE)
-            .json({ 'message': process.env.INVALID_ID_MESSAGE, phpId });
+            .json({ 'message': process.env.INVALID_ID_MESSAGE, seriesId });
     } else {
-        PHP.findById(phpId).exec(function (err, php) {
+        SERIES.findById(seriesId).exec(function (err, series) {
             if (err) {
                 console.log(process.env.ERROR, err);
                 response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
                 response.message = process.env.INTERNAL_SERVER_ERROR;
-            } else if(php==null){
-                console.log("Php not found");
+            } else if(series==null){
+                console.log("Series not found");
                 response.message = process.env.CONTENT_NOT_FOUND;
                 response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
             }else {
-                console.log(process.env.PHP_FOUND);
-                php.name = phpUpdate.name;
-                php.language = phpUpdate.language;
-                php.genre=phpUpdate.genre;
-                php.presentYear=phpUpdate.presentYear;
-                php.review=phpUpdate.review;
-                php.cast=phpUpdate.cast;
-                php.save(function (err) {
+                console.log(process.env.SERIES_FOUND);
+                series.name = seriesUpdate.name;
+                series.language = seriesUpdate.language;
+                series.genre=seriesUpdate.genre;
+                series.presentYear=seriesUpdate.presentYear;
+                series.review=seriesUpdate.review;
+                series.cast=seriesUpdate.cast;
+                series.save(function (err) {
                     if (err) {
                         console.log(process.env.ERROR, err);
                         response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
@@ -229,7 +229,7 @@ let updateAll = function (req, res) {
 
 
 
-    module.exports = { getAll, getPhpById,
+    module.exports = { getAll, getSeriesById,
          save, 
-         deletePhp,
+         deleteSeries,
          update,updateAll }
