@@ -23,6 +23,7 @@ Router.route(process.env.PHP_URL + process.env.PHP_PATH_ID_PARAMS + process.env.
 
 Router.route(process.env.PHP_URL + process.env.PHP_PATH_ID_PARAMS + process.env.REVIEW_URL + process.env.REVIEW_PATH_ID_PARAMS)
     .get(reviewController.getById)
-    .delete(reviewController.deleteReviewById);
+    .delete(reviewController.deleteReviewById)
+    .patch(reviewController.updateReviewById);
 
 module.exports = Router;

@@ -228,4 +228,48 @@ let deleteReviewById = function (req, res) {
     }
 }
 
-module.exports = { save, getAll, getById, deleteAllReview,deleteReviewById,updateReview }
+let updateReviewById = function (req, res) {
+    const phpId = req.params.phpId;
+    const reviewId = req.params.reviewId;
+
+    const review={
+        rating:req.body.rating,
+        description: req.body.description
+    }
+
+    if (!mongoose.isValidObjectId(phpId) && !mongoose.isValidObjectId(reviewId)) {
+        console.log("Review controller line 89->", "phpId or reviewId not valid");
+        res.status(process.env.INTERNAL_SERVER_ERROR_STATUS_CODE)
+            .json(process.env.INTERNAL_SERVER_ERROR);
+    } else {
+        PHP.findById(phpId).exec(function (err, php) {
+            if (err) {
+                console.log(process.env.ERROR, err);
+                response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
+                response.message = process.env.INTERNAL_SERVER_ERROR;
+            } else if (php == null) {
+                console.log(process.env.CONTENT_NOT_FOUND, " review controller line 127");
+                response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
+                response.message = process.env.CONTENT_NOT_FOUND;
+            } else {
+                const reviewToUpdate=php.review.id(reviewId);
+                reviewToUpdate.rating=review.rating;
+                reviewToUpdate.description=review.description;
+                php.save(function(err,updated){
+                    if (err) {
+                        console.log(process.env.ERROR, err);
+                        response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
+                        response.message = process.env.INTERNAL_SERVER_ERROR;
+                    } else{
+                        console.log("Review Controller line -> 104 ", updated);
+                        response.message = updated;
+                    }
+                });
+            }
+            res.status(response.status).json(response.message);
+        });
+
+    }
+}
+
+module.exports = { save, getAll, getById, deleteAllReview,deleteReviewById,updateReview ,updateReviewById}
