@@ -2,7 +2,7 @@ const express = require("express");
 const Router = express.Router();
 require("dotenv").config();
 const seriesController = require("../controllers/seriesController.js");
-const reviewController = require("../controllers/reviewController");
+const reviewController = require("../controllers/reviewController.js");
 
 
 Router.route(process.env.SERIES_URL)

@@ -4,14 +4,55 @@ require("dotenv").config();
 
 let response = {
     status: process.env.STATUS_OK,
-    message: process.env.SUCCESS
+    message: ""
+}
+
+
+
+const __geosearch = function (req, res, offset, count) {
+
+    const lng = parseFloat(req.query.lng);
+    const lat = parseFloat(req.query.lat);
+    const point = {
+        type: "point",
+        coordinates: [lng, lat]
+    };
+
+    const searchQuery = {
+        "publisher.location.coordinates": {
+            $near: {
+                $geometry: point,
+                $maxDistance: 1000,
+                $minDistance: 0
+            }
+        }
+    };
+
+    console.log("geo search called");
+
+    SERIES.find(searchQuery).skip(offset).limit(count).exec(function (err, series) {
+        if (err) {
+            console.log(process.env.ERROR, err);
+            response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
+            response.message = process.env.INTERNAL_SERVER_ERROR;
+        } else if (series == null) {
+            console.log("Series not found");
+            response.message = process.env.CONTENT_NOT_FOUND;
+            response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
+        } else {
+            console.log(process.env.SERIES_FOUND);
+            console.log(series);
+            response.message = series;
+        }
+        res.status(response.status).json(response.message);
+    });
 }
 
 
 let getAll = function (req, res) {
 
     if (isNaN(req.query.offset) || isNaN(req.query.count)) {
-        res.status(400).json({"message": "QueryString Offset and Count should be numbers"});
+        res.status(400).json({ "message": "QueryString Offset and Count should be numbers" });
         return;
     }
 
@@ -20,7 +61,14 @@ let getAll = function (req, res) {
 
     if (req.query.offset && req.query.count) {
         offset = parseInt(req.query.offset, 10);
-        count = parseInt(req.query.count,10);
+        count = parseInt(req.query.count, 10);
+    }
+
+    //lat long
+
+    if (req.query.lat && req.query.lng) {
+        __geosearch(req, res);
+        return;
     }
 
     SERIES.find().skip(offset).limit(count).exec(function (err, series) {
@@ -28,7 +76,7 @@ let getAll = function (req, res) {
             console.log(process.env.ERROR, err);
             response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
             response.message = process.env.INTERNAL_SERVER_ERROR;
-        } else if(series==null){
+        } else if (series == null) {
             console.log("Series not found");
             response.message = process.env.CONTENT_NOT_FOUND;
             response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
@@ -54,11 +102,11 @@ let getSeriesById = function (req, res) {
                 console.log(process.env.ERROR, err);
                 response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
                 response.message = process.env.INTERNAL_SERVER_ERROR;
-            }else if(series==null){
+            } else if (series == null) {
                 console.log("Series not found");
                 response.message = process.env.CONTENT_NOT_FOUND;
                 response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
-            }else {
+            } else {
                 console.log(process.env.SERIES_FOUND);
                 response.message = series;
             }
@@ -72,13 +120,13 @@ let getSeriesById = function (req, res) {
 let save = function (req, res) {
     console.log(req);
 
-    const review=req.body.review;
+    const review = req.body.review;
 
-    console.log("review->",review);
-    const cast=req.body.cast;
-    console.log("cast->",cast);
-    const language=req.body.language;
-    console.log("language->",language);
+    console.log("review->", review);
+    const cast = req.body.cast;
+    console.log("cast->", cast);
+    const language = req.body.language;
+    console.log("language->", language);
 
     const series = {
         name: req.body.name,
@@ -118,11 +166,11 @@ let deleteSeries = function (req, resp) {
                 console.log(process.env.ERROR, err);
                 response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
                 response.message = process.env.INTERNAL_SERVER_ERROR;
-            } else if(series==null){
+            } else if (series == null) {
                 console.log("Series not found");
                 response.message = process.env.CONTENT_NOT_FOUND;
                 response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
-            }else {
+            } else {
                 console.log(process.env.DELETE_SERIES_MESSAGE, seriesId);
                 response.message = process.env.DELETED_SUCCESSFULLY;
             }
@@ -151,21 +199,30 @@ let update = function (req, res) {
                 console.log(process.env.ERROR, err);
                 response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
                 response.message = process.env.INTERNAL_SERVER_ERROR;
-            }else if(series==null){
+            } else if (series == null) {
                 console.log("Series not found");
                 response.message = process.env.CONTENT_NOT_FOUND;
                 response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
             } else {
                 console.log(process.env.SERIES_FOUND);
-                series.name = seriesUpdate.name;
-                series.language = seriesUpdate.language;
-                series.save(function (err) {
+
+                if (seriesUpdate.name) {
+                    series.name = seriesUpdate.name;
+                }
+
+                if (seriesUpdate.language) {
+                    series.language = seriesUpdate.language;
+                }
+
+                // do for all paramaters
+
+                series.save(function (err, updatedSeries) {
                     if (err) {
                         console.log(process.env.ERROR, err);
                         response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
                         response.message = process.env.INTERNAL_SERVER_ERROR;
                     } else {
-                        response.message = process.env.UPDATED_SUCCESSFULLY;
+                        response.message = updatedSeries;
                     }
                 })
             }
@@ -199,18 +256,18 @@ let updateAll = function (req, res) {
                 console.log(process.env.ERROR, err);
                 response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
                 response.message = process.env.INTERNAL_SERVER_ERROR;
-            } else if(series==null){
+            } else if (series == null) {
                 console.log("Series not found");
                 response.message = process.env.CONTENT_NOT_FOUND;
                 response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
-            }else {
+            } else {
                 console.log(process.env.SERIES_FOUND);
                 series.name = seriesUpdate.name;
                 series.language = seriesUpdate.language;
-                series.genre=seriesUpdate.genre;
-                series.presentYear=seriesUpdate.presentYear;
-                series.review=seriesUpdate.review;
-                series.cast=seriesUpdate.cast;
+                series.genre = seriesUpdate.genre;
+                series.presentYear = seriesUpdate.presentYear;
+                series.review = seriesUpdate.review;
+                series.cast = seriesUpdate.cast;
                 series.save(function (err) {
                     if (err) {
                         console.log(process.env.ERROR, err);
@@ -219,17 +276,41 @@ let updateAll = function (req, res) {
                     } else {
                         response.message = process.env.UPDATED_SUCCESSFULLY;
                     }
+                    // send res.status(response.status).json(response.message);
                 })
             }
-            res.status(response.status).json(response.message);
+            if (!response.status == 200) {
+                res.status(response.status).json(response.message);
+            }
         });
 
     }
 }
 
+const fullUpdate = function (req, res) {
+
+    // fullUpdate check if everything is provided
+    // if(req.body && req.body.title){
+
+    // }
+
+    // if(req.body && req.body.year){
+
+    // }
+    // if(req.body && req.body.rate){
+
+    // }
+
+    // findById()
 
 
-    module.exports = { getAll, getSeriesById,
-         save, 
-         deleteSeries,
-         update,updateAll }
+}
+
+
+
+module.exports = {
+    getAll, getSeriesById,
+    save,
+    deleteSeries,
+    update, updateAll, fullUpdate
+}

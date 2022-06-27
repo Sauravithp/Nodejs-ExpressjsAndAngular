@@ -8,8 +8,25 @@ let reviewSchema=new mongoose.Schema({
         min: 1,
         max: 5
     },
-    description: String
+    description: String,
+    publisher: publisherSchema
 });
+
+let publisherSchema=new mongoose.Schema({
+    name:{
+        type: String,
+        required: true
+    },
+    country: String,
+    location:{
+        coordinates:{
+        type:[Number],
+        index:"2dsphere"
+        }
+    },
+    established: Number
+});
+
 
 let castSchema=new mongoose.Schema({
     name:String,
