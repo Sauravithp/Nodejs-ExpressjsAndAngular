@@ -2,16 +2,6 @@ const mongoose=require("mongoose");
 require("dotenv").config();
 
 
-let reviewSchema=new mongoose.Schema({
-    rating: {
-        type: Number,
-        min: 1,
-        max: 5
-    },
-    description: String,
-    publisher: publisherSchema
-});
-
 let publisherSchema=new mongoose.Schema({
     name:{
         type: String,
@@ -26,6 +16,18 @@ let publisherSchema=new mongoose.Schema({
     },
     established: Number
 });
+
+let reviewSchema=new mongoose.Schema({
+    rating: {
+        type: Number,
+        min: 1,
+        max: 5
+    },
+    description: String,
+    publisher: publisherSchema
+});
+
+
 
 
 let castSchema=new mongoose.Schema({

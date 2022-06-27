@@ -1,29 +1,41 @@
-const dbConnection = require("../data/dbconnection");
-const ObjectId = require('mongodb').ObjectId;
+const mongooose=require("mongoose");
+const GAME=mongooose.model("Game");
 require("dotenv").config();
 
 
 const getAll = function (req, res) {
 
+    const response={
+        status:200,
+        message:''
+    };
+
     let offset = 0;
     let count = 5;
+
     if (req.query.offset && req.query.count) {
         offset = parseInt(req.query.offset, 10);
         count = parseInt(req.query.count, 10);
     }
 
-    const db = dbConnection.get();
-    const gamesCollection = db.collection(process.env.DATABASE_COLLECTION_NAME);
-
-    gamesCollection.find().skip(offset).limit(count).toArray(function (err, docs) {
-        if (err) {
-            console.log("debug err: ", err);
-            res.status(process.env.STATUS_OK).json({ 'error': err });
-            return;
+    GAME.find().skip(offset).limit(count).exec(function(err,games){
+        if(err){
+            console.log("Internal Server error in game Controller getAll");
+            response.status=500;
+            response.message="Internal Server error";
+        }else if(!games){
+            console.log("games not found in game controller getAll");
+            response.status=404;
+            response.message="Games not found";
+        }else{
+            console.log("Inside getAll gameController, games found")
+            response.status=200;
+            response.message=games;
         }
-        console.log("Found games", docs);
-        res.status(process.env.STATUS_OK).json(docs);
+        res.status(response.status).json(response.message);
     });
+
+   
 }
 
 const addNewGame = function (req, res) {
