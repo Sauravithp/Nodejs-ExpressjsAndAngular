@@ -1,49 +1,42 @@
-const mongoose=require("mongoose");
+const mongoose = require("mongoose");
 
-let reviewSchema=new mongoose.Schema({
-         rating: Number,
-         description: String
+const publisherSchema= new mongoose.Schema({
+    "name": String,
+    "location": {
+        "coordinates": [Number ]
+    }
+});
+
+const reviewSchema= new mongoose.Schema({
+    rating: Number,
+    description: String
 });
 
 
-let publisherSchema = new mongoose.Schema({
-    name: {
+const gameSchema = mongoose.Schema({
+    "title": {
         type: String,
         required: true
     },
-    location: { coordinates: [Number] }
-});
-
-let gameSchema = mongoose.Schema({
-    title: {
-        type: String,
-        required: true
-    },
-    year: Number,
-    rate: Number,
-    price: {
-        type: Number,
-        required: true
-    },
-    type: Number,
-    minPlayers: {
+    "year": Number,
+    "rate": {
         type: Number,
         min: 1,
-        max: 11
+        max: 5
     },
-    maxPlayers: {
+    "minPlayers": {
+        type: Number
+    },
+    "maxPlayers": {
+        type: Number
+    },
+    "price": Number,
+    "minAge": {
         type: Number,
-        min: 1,
-        max: 11
     },
-    publisher: publisherSchema,
-    reviews: [reviewSchema],
-    minAge: {
-        type: Number,
-        min: 6,
-        max: 99
-    },
-    designers: [String]
+    "designers": [String],
+    "publisher":publisherSchema,
+    "review":[reviewSchema]
 });
 
-mongoose.model("Game", gameSchema, "meanGames");
+mongoose.model("Game", gameSchema,"meanGames");
