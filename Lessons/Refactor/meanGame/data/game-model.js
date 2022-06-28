@@ -1,13 +1,16 @@
 const mongoose = require("mongoose");
 
-const publisherSchema= new mongoose.Schema({
+const publisherSchema = new mongoose.Schema({
     "name": String,
     "location": {
-        "coordinates": [Number ]
+        "coordinates": {
+            type: [Number],
+            required: true
+        }
     }
 });
 
-const reviewSchema= new mongoose.Schema({
+const reviewSchema = new mongoose.Schema({
     rating: Number,
     description: String
 });
@@ -35,8 +38,8 @@ const gameSchema = mongoose.Schema({
         type: Number,
     },
     "designers": [String],
-    "publisher":publisherSchema,
-    "review":[reviewSchema]
+    "publisher": publisherSchema,
+    "review": [reviewSchema]
 });
 
-mongoose.model("Game", gameSchema,"meanGames");
+mongoose.model("Game", gameSchema, "meanGames");

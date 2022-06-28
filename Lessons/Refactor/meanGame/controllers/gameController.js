@@ -189,7 +189,6 @@ const partialUpdate = function (req, res) {
         res.status(500).json({ 'messahge': 'Invalid id provided' });
     } else {
         GAME.findById(gameId).exec(function (err, game) {
-
             if (err) {
                 console.log("Internal server error inside find by id(partial update)");
                 response.message = "Internal server error";
