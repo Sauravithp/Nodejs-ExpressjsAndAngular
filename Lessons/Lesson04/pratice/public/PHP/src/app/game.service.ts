@@ -11,9 +11,15 @@ export class GameService {
 
 
   private baseUrl="https://cat-fact.herokuapp.com";
+  private gameBaseUrl="https://localhost:3000/api/games";
 
   public getResult(): Observable<any[]>{
     const url=this.baseUrl+"/facts";
+    return this._http.get<any[]>(url);
+  }
+
+  public getGamesResult(): Observable<any[]>{
+    const url=this.gameBaseUrl;
     return this._http.get<any[]>(url);
   }
 
