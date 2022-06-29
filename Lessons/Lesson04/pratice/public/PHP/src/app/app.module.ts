@@ -8,6 +8,7 @@ import { GamesComponent } from './games/games.component';
 import { HomeComponent } from './home/home.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
+import { StartRatingComponent } from './start-rating/start-rating.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { FooterComponent } from './footer/footer.component';
     HomeComponent,
     NavigationComponent,
     FooterComponent,
+    StartRatingComponent,
   ],
   imports: [
     BrowserModule,
