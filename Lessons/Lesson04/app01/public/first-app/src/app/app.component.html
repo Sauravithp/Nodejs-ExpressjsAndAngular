@@ -1,5 +1,4 @@
-this is aap.html
-
+<h1>This is aap.html</h1>
 <br/>
 
 <!-- {{people}} -->
@@ -20,13 +19,15 @@ this is aap.html
     <option *ngFor="let student of people">{{student.course}}</option>
 </select> -->
 
-{{salary | currency:"rs"}}
+<div class="salary">{{salary | currency:"rs"}}</div>
 <br/>
-{{today | date: "mm-dd-yyyy"}}
+<div>
+    {{today | date: "mm-dd-yyyy"}}
+</div>
 <br/>
-{{student | json}}
+<div>{{student | json}}</div>
 <br/>
-{{"SAURAVI THAPA"|uppercase}}
+<div>{{"SAURAVI THAPA"|uppercase}}</div>
 
 <br/>
-{{salary| number:"1.5"}}
+<div>{{salary| number:"1.5"}}</div>
