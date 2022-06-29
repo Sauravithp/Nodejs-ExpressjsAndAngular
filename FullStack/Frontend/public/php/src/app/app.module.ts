@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import {HttpClient} from '@angular/common/http'
+import {HttpClientModule} from '@angular/common/http'
  
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
@@ -21,16 +21,16 @@ import { GamesComponent } from './games/games.component';
   ],
   imports: [
     BrowserModule,
-    HttpClient,
+    HttpClientModule,
     RouterModule.forRoot([{
          path:"",
          component: HomeComponent
     },
   {
-    path:"/game/:gameId",
+    path:"game/:gameId",
     component: GameComponent
   },{
-    path:"/games",
+    path:"games",
     component: GamesComponent
   },
 ])

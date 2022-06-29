@@ -30,4 +30,4 @@ const gameSchema = mongoose.Schema({
     "designers": [String]
 });
 
-mongoose.model("Game",gameSchema,"meanGames");
+mongoose.model("Game",gameSchema,"meansGames");

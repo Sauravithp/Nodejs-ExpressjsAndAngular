@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 require("./games-model.js");
 
-mongoose.connect("mongodb://localhost:27017/mwa");
+mongoose.connect("mongodb://localhost:27017/games");
 
 mongoose.connection.on("connected", function () {
-    console.log("Mongoose connected to", " mwa");
+    console.log("Mongoose connected to", " games");
 });
 
 mongoose.connection.on("disconnected", function () {
-    console.log("Mongoose disconnected to", " mwa");
+    console.log("Mongoose disconnected to", " games");
 });
 
 mongoose.connection.on("error", function () {
