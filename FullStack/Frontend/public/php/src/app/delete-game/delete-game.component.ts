@@ -11,6 +11,7 @@ import { Game } from '../games/games.component';
 export class DeleteGameComponent implements OnInit {
 
   game!:Game;
+  message:string="Game deleted successfully";
 
 
   constructor(private _gameService:GameService, private _router:ActivatedRoute) { }
