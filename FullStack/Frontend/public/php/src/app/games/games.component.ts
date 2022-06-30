@@ -3,7 +3,7 @@ import { GameService } from '../game.service';
 
 
 export class Game {
-  #id!: String;
+  #_id!: String;
   #title!: String;
   #minPlayers!: number;
   #maxPlayers!: number;
@@ -14,8 +14,8 @@ export class Game {
 
   constructor() { }
 
-  get id() {
-    return this.#id;
+  get _id() {
+    return this.#_id;
   }
   get title() {
     return this.#title;
@@ -39,8 +39,8 @@ export class Game {
     return this.#year;
   }
 
-  set id(id) {
-    this.#id = id;
+  set _id(_id) {
+    this.#_id = _id;
   }
   set title(title) {
     this.#title = title;

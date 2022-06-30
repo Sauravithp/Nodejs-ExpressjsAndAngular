@@ -16,4 +16,15 @@ export class GameService {
   public getGames():Observable<Game[]>{
     return this._http.get<Game[]>(this.#baseUrl);
   }
+
+  public getGame(gameId:string):Observable<Game>{
+    const url=this.#baseUrl+"/"+gameId;
+    return this._http.get<Game>(url);
+  }
+
+  public deleteGame(gameId:string):Observable<Game>{
+    const url=this.#baseUrl+"/"+gameId;
+    console.log(url);
+    return this._http.delete<Game>(url);
+  }
 }

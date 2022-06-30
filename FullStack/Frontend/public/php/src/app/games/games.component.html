@@ -3,5 +3,6 @@
 <h3>The available games are:</h3>
 
 <ul>
-    <li *ngFor="let game of games">{{game.title}}</li>
+    <li *ngFor="let game of games">
+        <a routerLink="/game/{{game._id}}">{{game.title}}</a></li>
 </ul>

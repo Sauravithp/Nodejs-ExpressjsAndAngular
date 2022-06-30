@@ -1,1 +1,12 @@
-<p>game works!</p>
+<h2>Game Details</h2>
+
+<h4>{{game.title}} - {{game.rate}}</h4>
+<p>price - {{game.price}}</p>
+<p>minplayers-{{game.minPlayers}}</p>
+<p>maximum players-{{game.maxPlayers}}</p>
+<p>minimuma age:{{game.minAge}}</p>
+
+
+<button routerLink="/delete/game/{{game._id}}">Delete</button>
+
+<button>Update</button>

@@ -31,6 +31,7 @@ const getAll = function (req, res) {
             console.log("Inside getAll gameController, games found")
             response.status = 200;
             response.message = games;
+            console.log(games);
         }
         res.status(response.status).json(response.message);
     });

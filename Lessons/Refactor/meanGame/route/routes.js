@@ -24,15 +24,15 @@ router.route("/games/:gameId/publishers")
     .put(publisherController.fullUpdate)
     .patch(publisherController.partialUpdate);
 
-router.route("/games/:gameId/review")
-    .get(reviewController.getReviews)
-    .post(reviewController.create);
+// router.route("/games/:gameId/review")
+//     .get(reviewController.getReviews)
+//     .post(reviewController.create);
 
-router.route("/games/:gameId/review/:reviewId")
-    .get(reviewController.getById)
-    .put(reviewController.updateAll)
-    .patch(reviewController.partialUpdate)
-    .delete(reviewController.deleteById);
+// router.route("/games/:gameId/review/:reviewId")
+//     .get(reviewController.getById)
+//     .put(reviewController.updateAll)
+//     .patch(reviewController.partialUpdate)
+//     .delete(reviewController.deleteById);
 
 module.exports = router;
 

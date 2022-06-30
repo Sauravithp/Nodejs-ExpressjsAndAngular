@@ -9,6 +9,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
 import { GamesComponent } from './games/games.component';
+import { DeleteGameComponent } from './delete-game/delete-game.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { GamesComponent } from './games/games.component';
     NavigationComponent,
     HomeComponent,
     GameComponent,
-    GamesComponent
+    GamesComponent,
+    DeleteGameComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,10 @@ import { GamesComponent } from './games/games.component';
   },{
     path:"games",
     component: GamesComponent
-  },
+  },{
+    path:"delete/game/:gameId",
+    component: DeleteGameComponent
+  }
 ])
   ],
   providers: [],

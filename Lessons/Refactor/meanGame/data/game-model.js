@@ -42,4 +42,4 @@ const gameSchema = mongoose.Schema({
     "review": [reviewSchema]
 });
 
-mongoose.model("Game", gameSchema, "meanGames");
+mongoose.model("Game", gameSchema, "meansGames");

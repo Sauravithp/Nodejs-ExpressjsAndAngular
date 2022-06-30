@@ -2,7 +2,7 @@ const mongoose=require("mongoose");
 
 require("./game-model.js");
 
-mongoose.connect("mongodb://localhost:27017/mwa");
+mongoose.connect("mongodb://localhost:27017/games");
 
 mongoose.connection.on("connected",function(){
     console.log("Mongoose connected to db");
