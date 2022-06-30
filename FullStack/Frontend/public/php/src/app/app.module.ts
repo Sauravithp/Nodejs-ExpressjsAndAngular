@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
 import { GamesComponent } from './games/games.component';
 import { DeleteGameComponent } from './delete-game/delete-game.component';
+import { StarRatingComponent } from './star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { DeleteGameComponent } from './delete-game/delete-game.component';
     HomeComponent,
     GameComponent,
     GamesComponent,
-    DeleteGameComponent
+    DeleteGameComponent,
+    StarRatingComponent
   ],
   imports: [
     BrowserModule,
