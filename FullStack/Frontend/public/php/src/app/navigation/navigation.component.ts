@@ -21,4 +21,8 @@ export class NavigationComponent implements OnInit {
        this._router.navigate(["games"]);
   }
 
+  onRegister(): void{
+    this._router.navigate(["register"]);
+}
+
 }
