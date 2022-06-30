@@ -4,7 +4,7 @@
   "description": "Class work",
   "main": "assignment.js",
   "scripts": {
-    "start": "nodemon assignment.js",
+    "start":"nodemon assignment.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
