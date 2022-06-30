@@ -1,0 +1,12 @@
+Parent Start
+<br/>
+parentX={{parentX}}
+<br/>
+parentY={{parentY}}
+<br/>
+<br/>
+parentZ={{parentZ}}
+<br/>
+<app-child [childX]=parentX [childY]=parentY (addEvent)="updateZ($event)"></app-child>
+<br/>
+Parent End
