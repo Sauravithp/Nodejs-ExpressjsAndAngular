@@ -16,7 +16,6 @@ const server=app.listen(process.env.PORT, function () {
 
 app.use(process.env.API_URL,function(req,res,next){
     res.header("Access-Control-Allow-Origin","http://localhost:4200");
-    res.header('Access-Control-Allow-Methods', 'DELETE,GET,POST,PUT,PATCH');
     next();
 });
 
