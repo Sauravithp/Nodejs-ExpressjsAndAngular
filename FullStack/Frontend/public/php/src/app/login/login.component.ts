@@ -21,16 +21,24 @@ export class LoginComponent implements OnInit {
   @ViewChild("loginForm")
   loginForm!:NgForm;
 
-  user:Credentails=new Credentails("jack","jill");
+  user:Credentails=new Credentails("sauravi","jill");
 
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit(): void {
+    console.log("init called");
+
+    setTimeout(()=>{
+      this.loginForm.setValue(this.user);
+    },0);
   }
 
   onLogin():void{
       console.log("Login Clicked")
-      console.log(this.user.username," ",this.user.password );
+      // console.log(this.user.username," ",this.user.password );
+            console.log(this.loginForm.value);
+
   }
 
 }
