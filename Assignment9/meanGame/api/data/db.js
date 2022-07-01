@@ -1,6 +1,8 @@
 const mongoose=require("mongoose");
 
 require("./game-model.js");
+require("./user-model.js");
+
 
 mongoose.connect("mongodb://localhost:27017/games");
 

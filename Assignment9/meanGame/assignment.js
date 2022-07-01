@@ -1,6 +1,6 @@
-require("./data/db.js");
+require("./api/data/db.js");
 const express = require("express");
-const routes = require("./route/routes.js");
+const routes = require("./api/route");
 const path = require("path");
 var cors = require('cors')
 
@@ -19,6 +19,7 @@ const server=app.listen(process.env.PORT, function () {
 
 app.use(process.env.API_URL,function(req,res,next){
     res.header("Access-Control-Allow-Origin","http://localhost:4200");
+    res.header("Access-Control-Allow-Headers","content-type");
     next();
 });
 
