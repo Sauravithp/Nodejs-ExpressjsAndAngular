@@ -1,0 +1,39 @@
+
+<br/>
+<br/>
+
+ Please fill the form to add new Game
+
+ <form [formGroup]="addForm" (ngSubmit)="onAdd()">
+
+    <div>
+        <label>title</label>
+        <input formControlName="title" placeholder="title">
+    </div>
+
+    <div>
+        <label>rate</label>
+        <input formControlName="rate" placeholder="rate">
+
+    </div>
+    <div>
+        <label>price</label>
+        <input formControlName="price" placeholder="price">
+    </div>
+    <div>
+        <label>minplayers</label>
+        <input formControlName="minPlayers" placeholder="minimum players">
+    </div>
+    <div>
+        <label>maximum players</label>
+        <input formControlName="maxPlayers" placeholder="maximum players">
+    </div>
+    <div>
+        <label>min age</label>
+        <input formControlName="minAge" placeholder="minimum age">
+    </div>
+
+    <button type="submit">Add</button>
+
+    {{message}}
+ </form>
