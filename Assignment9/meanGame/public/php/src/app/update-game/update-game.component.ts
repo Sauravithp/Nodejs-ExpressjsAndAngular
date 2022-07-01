@@ -36,10 +36,9 @@ export class UpdateGameComponent implements OnInit {
     console.log(gameId);
     
     _gameService.getGame(gameId).subscribe(response => {
+      
      this.game=new Game(response._id,response.title,response.rate,response.price,
       response.year,response.minAge,response.maxPlayers,response.minPlayers);
-
-      
 
        this.#updateForm=_formBuilder.group({
         title: response.title,
