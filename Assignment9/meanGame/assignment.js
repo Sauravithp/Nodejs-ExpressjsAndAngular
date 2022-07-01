@@ -2,8 +2,6 @@ require("./api/data/db.js");
 const express = require("express");
 const routes = require("./api/route");
 const path = require("path");
-var cors = require('cors')
-
 
 require("dotenv").config();
 
@@ -22,9 +20,6 @@ app.use(process.env.API_URL,function(req,res,next){
     res.header("Access-Control-Allow-Headers","content-type");
     next();
 });
-
-
-app.use(cors());
 
 app.use(process.env.FORWARD_SLASH, express.static(path.join(__dirname, process.env.EXPRESS_PUBLIC_FOLDER)));
 
