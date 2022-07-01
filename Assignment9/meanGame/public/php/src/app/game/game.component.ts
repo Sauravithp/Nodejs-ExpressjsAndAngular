@@ -1,5 +1,6 @@
+import { state } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GameService } from '../game.service';
 import { Game } from '../games/games.component';
 
@@ -13,7 +14,7 @@ export class GameComponent implements OnInit {
 
   game!:Game;
 
-  constructor(private _gameService:GameService,private route:ActivatedRoute) { }
+  constructor(private _gameService:GameService,private route:ActivatedRoute, private _router:Router) { }
 
   ngOnInit(): void {
 
@@ -34,5 +35,4 @@ export class GameComponent implements OnInit {
       console.log(this.game);
     });
   }
-
 }

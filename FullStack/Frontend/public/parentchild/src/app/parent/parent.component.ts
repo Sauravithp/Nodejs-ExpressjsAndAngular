@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ParentComponent implements OnInit {
 
-  parentX=5;
+  parentx=5;
   parentY=5;
   parentZ!:number;
 

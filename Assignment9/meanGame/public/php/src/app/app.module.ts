@@ -58,6 +58,9 @@ import { UpdateGameComponent } from './update-game/update-game.component';
   },{
     path:"add",
     component: CreateGameComponent
+  },{
+    path:"update/game/:gameId",
+    component: UpdateGameComponent
   }
 ])
   ],

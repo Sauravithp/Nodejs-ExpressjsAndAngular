@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { response } from 'express';
+import { GameAdd } from '../create-game/create-game.component';
+import { GameService } from '../game.service';
+import { Game } from '../games/games.component';
 
 @Component({
   selector: 'app-update-game',
@@ -7,9 +13,63 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateGameComponent implements OnInit {
 
-  constructor() { }
 
+  game!: Game;
+
+  message: string = "";
+
+  #updateForm!: FormGroup;
+
+  get updateForm() {
+    return this.#updateForm;
+  }
+
+
+  constructor(private router: Router, private route: ActivatedRoute, private _gameService: GameService,
+    private _formBuilder: FormBuilder) {
+    // const result=this.router.getCurrentNavigation()?.extras.state as {
+    //   game:any
+    // };
+    // console.log("udapte",result.game);
+
+    const gameId = this.route.snapshot.params["gameId"];
+    console.log(gameId);
+    
+    _gameService.getGame(gameId).subscribe(response => {
+     this.game=new Game(response._id,response.title,response.rate,response.price,
+      response.year,response.minAge,response.maxPlayers,response.minPlayers);
+
+      
+
+       this.#updateForm=_formBuilder.group({
+        title: response.title,
+        price: response.price,
+        rate: response.rate,
+        minAge: response.minAge,
+        maxPlayers: response.maxPlayers,
+        minPlayers:response.minPlayers
+      });
+    
+    });
+  
+    
+
+  }
   ngOnInit(): void {
+
+  }
+
+  onUpdate(): void {
+    console.log("on add Clicked")
+
+    this.game = new Game(this.game._id,this.#updateForm.value.title,this.#updateForm.value.rate,this.#updateForm.value.price,
+      this.game.year,this.#updateForm.value.minAge,this.#updateForm.value.maxPlayers,this.#updateForm.value.minPlayers);
+
+    this._gameService.updateGame(this.game,this.game._id).subscribe(response => {
+      console.log(response);
+      this.message = "Game updated Successfully"
+    })
+    this.router.navigate(["games"]);
   }
 
 }

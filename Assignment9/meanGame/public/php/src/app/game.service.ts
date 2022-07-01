@@ -40,4 +40,16 @@ export class GameService {
       "minAge": game.minAge
   });
   }
+
+  public updateGame(game:Game,gameId:string):Observable<Game>{
+    const url=this.#baseUrl+"/"+gameId;
+    return this._http.patch<Game>(url, {
+      "title": game.title,
+      "rate": game.rate,
+      "price": game.price,
+      "minPlayers": game.minPlayers,
+      "maxPlayers": game.maxPlayers,
+      "minAge": game.minAge
+  });
+  }
 }
