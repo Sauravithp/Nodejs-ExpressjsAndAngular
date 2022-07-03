@@ -16,6 +16,8 @@ export class RegisterComponent implements OnInit {
     return this.#registrationForm
   }
 
+  message!:string;
+
   constructor(private _formBuilder:FormBuilder,private userService:UsersDataService) {
     // this.#registrationForm=new FormGroup({
     //   name: new FormControl("Sauravi"),
@@ -43,6 +45,9 @@ export class RegisterComponent implements OnInit {
       'password':this.#registrationForm.value.password,
     }).subscribe(response=>{
       console.log(response);
+      console.log("registered");
+      this.#registrationForm.reset();
+      this.message="Registered";
     });
   }
 

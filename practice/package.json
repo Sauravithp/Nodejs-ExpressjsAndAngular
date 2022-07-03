@@ -1,0 +1,23 @@
+{
+  "name": "pratice",
+  "version": "1.0.0",
+  "description": "Practice test",
+  "main": "main.js",
+  "scripts": {
+    "startBackend":"nodemon --inspect",
+    "startFrontend":"cd ./public/frontend && npm start",
+    "start":"nodemone main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "express"
+  ],
+  "author": "Sauravi Thapa",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.4.2"
+  }
+}

@@ -53,6 +53,7 @@ export class UpdateGameComponent implements OnInit {
 
   }
   ngOnInit(): void {
+
   }
 
   onUpdate(): void {
