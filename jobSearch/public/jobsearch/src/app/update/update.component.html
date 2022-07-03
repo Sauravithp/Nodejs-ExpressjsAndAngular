@@ -1,0 +1,28 @@
+<br/>
+<h3>Fill the form to update job</h3>
+
+<form [formGroup]="updateForm" (ngSubmit)="onUpdate()">
+    <div>
+      <label>Title: </label>
+      <input formControlName="title" placeholder="title">
+    </div>
+
+    <div>   
+        <label>Salary: </label>
+        <input formControlName="salary" placeholder="salary">
+    </div>
+
+    <div>
+        <label>Experience: </label>
+        <input formControlName="experience" placeholder="experience">
+    </div>
+    <div>
+        <label>Description: </label>
+        <input formControlName="description" placeholder="description">
+    </div>
+    <div>
+        <label>Skill: </label>
+        <input formControlName="skill" placeholder="skill">
+    </div>
+    <button type="submit">Update</button>
+</form>

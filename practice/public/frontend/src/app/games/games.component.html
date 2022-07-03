@@ -7,3 +7,16 @@
         <a routerLink="/game/{{game._id}}">{{game.title}}</a>
     </li>
 </ul>
+
+<br/>
+
+<button  [disabled]="isPreviousDisabled" (click)="onPrevious()">Previous</button>{{viewedCount}} of {{totalCount}}
+ <button [disabled]="isNextDisabled" (click)="onNext()">Next</button>
+ <br/>
+ <br/>
+ <form [formGroup]="search" (ngSubmit)="onSubmit()">
+    <input formControlName="title" type="text">
+    <button type="submit">search</button>
+<form>
+
+

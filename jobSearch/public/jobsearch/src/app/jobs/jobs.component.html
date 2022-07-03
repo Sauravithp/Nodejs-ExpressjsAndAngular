@@ -1,0 +1,14 @@
+<h3>The list of jobs are:</h3>
+
+<ul>
+    <li *ngFor="let job of jobs"><a routerLink="/job/{{job._id}}">{{job.title}}</a></li>
+</ul>
+
+<button [disabled]="isPreviouseDisabled" (click)="onPrevious()">previous</button>{{viewedCount}} of {{totalCount}}
+<button [disabled]="isNextDisabled" (click)="onNext()">Next</button>
+<br/>
+<br/>
+<form [formGroup]="searchForm" (ngSubmit)="onSearch()"> 
+    <input formControlName="search" placeholder="search">
+    <button type="submit">search</button>
+</form>

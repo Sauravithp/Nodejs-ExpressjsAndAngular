@@ -10,6 +10,7 @@ import { DeleteComponent } from './delete/delete.component';
 import { GamesComponent } from './games/games.component';
 import { GameComponent } from './game/game.component';
 import { HomeComponent } from './home/home.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HomeComponent } from './home/home.component';
     DeleteComponent,
     GamesComponent,
     GameComponent,
-    HomeComponent
+    HomeComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +36,9 @@ import { HomeComponent } from './home/home.component';
     },{
       path:"delete/:gameId",
       component: DeleteComponent
+    },{
+      path:"search/:title",
+      component: SearchComponent
     }]),
     HttpClientModule,
     ReactiveFormsModule

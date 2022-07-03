@@ -17,6 +17,11 @@ export class GameDataService {
     return this.http.get<Game[]>(url);
   }
 
+  public getTotalGames(): Observable<number> {
+    const url=this.#baseUrl+"/count";
+    return this.http.get<number>(url);
+  }
+
   public getGameById(gameId:String):Observable<Game>{
     const url=this.#baseUrl+"/"+gameId;
     return this.http.get<Game>(url);
@@ -27,5 +32,9 @@ export class GameDataService {
     return this.http.delete<string>(url);
   }
 
+  public search(title:string):Observable<Game>{
+    const url=this.#baseUrl+"/search/"+title;
+    return this.http.get<Game>(url);
+  }
 
 }

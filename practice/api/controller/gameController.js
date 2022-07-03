@@ -38,6 +38,40 @@ const getAll = function (req, res) {
 }
 
 
+const getByTitle = function (req, res) {
+
+    const response = {
+        status: 200,
+        message: ""
+    }
+
+    let title ='';
+
+    if (!req.params.title) {
+        console.log("Title not given");
+        res.status(500).json({ "message": "Title not given"});
+        return;
+    } else {
+        title=req.params.title;
+        console.log(title);
+        GAME.find({'title':title})
+            .then((game) => {
+                if (!game) {
+                    console.log("Games not found");
+                    fillResponse(response, 404, "content not found");
+                } else {
+                    console.log(game[0]);
+                    fillResponse(response, 200, game[0])
+                }
+            })
+            .catch((err) => fillResponse(response, 500, "Internal Server error"))
+            .finally(() => sendResponse(response, res, req));
+    }
+
+
+}
+
+
 const deleteById = function (req, res) {
 
     const gameId = req.params.gameId;
@@ -85,6 +119,18 @@ const getById = function (req, res) {
 
 }
 
+const getTotalGameCount=function(req,res){
+    const response={
+        status:200,
+        message:''
+    }
+
+    GAME.find().count()
+    .then((count)=>fillResponse(response,200,count))
+    .catch((err)=>fillResponse(response,500,err))
+    .finally(()=>sendResponse(response,res,req));
+}
+
 const fillResponse = function (response, status, message) {
     response.status = status;
     response.message = message;
@@ -95,5 +141,5 @@ const sendResponse = function (response, res) {
 }
 
 module.exports = {
-    getAll, deleteById, getById
+    getAll, deleteById, getById,getTotalGameCount,getByTitle
 }

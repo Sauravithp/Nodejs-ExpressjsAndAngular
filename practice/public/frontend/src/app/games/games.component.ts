@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormControlName, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { GameDataService } from '../game-data.service';
 
 
@@ -12,7 +14,8 @@ export class Game {
   #maxPlayers!: Number;
   #minPlayers!: Number;
 
-  constructor(_id: string, title: string, rate: Number, year: Number, price: Number, minAge: Number, maxPlayer: Number, minPlayers: Number) {
+  constructor(_id: string, title: string, rate: Number, year: Number, price: Number, minAge: Number, 
+    maxPlayer: Number, minPlayers: Number) {
     this.#_id = _id,
       this.#rate = rate,
       this.#title = title,
@@ -92,15 +95,78 @@ export class GamesComponent implements OnInit {
 
   games: Game[] = [];
 
-  constructor(private _gameService: GameDataService) { }
+  offset:number = 0;
+  count:number = 5;
+  totalCount:number=0;
+  viewedCount:number=5;
+
+  isPreviousDisabled=true;
+  isNextDisabled=false;
+
+   title:string='';
+
+   #searchForm!:FormGroup;
+   get search(){
+    return this.#searchForm
+   }
+
+  constructor(private _gameService: GameDataService,private _formBuilder:FormBuilder,private _router:Router) { 
+    this.#searchForm=this._formBuilder.group({
+      title:""
+    });
+  }
 
   ngOnInit(): void {
 
-    this._gameService.getGames(0,5).subscribe((games) => {
+    this._gameService.getGames(this.offset, this.count).subscribe((games) => {
       this.games = games;
       console.log(this.games);
     });
 
+    this._gameService.getTotalGames().subscribe((response)=>{
+      this.totalCount=response;
+      console.log(this.totalCount);
+    })
+
+    if(this.offset==0){
+      this.isPreviousDisabled=true;
+    }
+
   }
 
+  onPrevious(): void {
+       this.offset=this.offset-1;
+       this._gameService.getGames(this.offset, this.count).subscribe((games) => {
+       this.games = games;
+        console.log(this.games);
+        this.viewedCount=this.viewedCount-this.count;
+       });
+
+    if(this.offset==0){
+      this.isPreviousDisabled=true;
+    }
+  }
+
+  onNext(): void {
+    if(this.viewedCount!=this.totalCount){
+      this.offset=this.offset+1;
+      this._gameService.getGames(this.offset, this.count).subscribe((games) => {
+      this.games = games;
+       console.log(this.games);
+       this.viewedCount=this.viewedCount+this.count;
+       if(this.viewedCount>=this.totalCount){
+        this.isNextDisabled=true;
+        this.viewedCount=this.totalCount;
+      }
+      if(this.offset!=0){
+        this.isPreviousDisabled=false;
+      }
+      });
+    }  
+  }
+
+  onSubmit():void{
+     console.log(this.#searchForm.value.title);
+     this._router.navigate(["search/"+this.#searchForm.value.title]);
+  }
 }

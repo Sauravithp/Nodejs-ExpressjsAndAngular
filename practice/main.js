@@ -7,8 +7,6 @@ const route=require("./api/route")
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 
-
-
 app.use("/",function(req,res,next){
     console.log(req.url,req.method);
     next();
