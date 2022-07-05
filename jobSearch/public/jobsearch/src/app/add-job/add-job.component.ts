@@ -129,6 +129,7 @@ export class AddJobComponent implements OnInit {
     this._jobService.addJob(this.job).subscribe((response) => {
       this.job = response;
       console.log(this.job);
+      alert("Added");
       this._router.navigate(["jobs"]);
     });
   }

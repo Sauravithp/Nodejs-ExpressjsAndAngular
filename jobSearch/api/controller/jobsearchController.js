@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const JOBSEARCH = mongoose.model("JobSearch");
+const crypto = require("crypto-js");
 
 
 const getAll = function (req, res) {
@@ -43,11 +44,12 @@ const add = function (req, res) {
         res.status(500).json({ 'message': 'Issue in req body' });
         return;
     } else {
-        newJob.postDate=Date.now();
+        newJob.postDate = Date.now();
         JOBSEARCH.create(newJob)
             .then((result) => fillResponse(response, 200, result))
             .catch((err) => fillResponse(response, 500, err))
             .finally(() => sendResponse(response, res));
+
     }
 
 
@@ -283,10 +285,39 @@ const geoSearch = function (req, res) {
             .catch((err) => fillResponse(response, 500, err))
             .finally(() => sendResponse(response, res));
     }
+}
 
+const jobWithinMonths = function (req, res) {
+
+    console.log("inside getAll");
+    const response = {
+        status: 200,
+        messahe: ''
+    }
+
+    let offset = 0;
+    let count = 0
+
+    if (!req.query.offset && !req.query.count) {
+        console.log("Pagination data not found");
+        res.status(500).json({ 'message': 'Pagination data not found' });
+        return;
+    } else {
+        let beginDate = new Date();
+        beginDate.setMonth(beginDate.getMonth() - 6);
+
+        JOBSEARCH.find({ postDate: { '$gt': beginDate } }).skip(offset).limit(count)
+            .then((jobs) => {
+                console.log(jobs);
+                fillResponse(response, 200, jobs)
+            })
+            .catch((err) => fillResponse(response, 500, err))
+            .finally(() => sendResponse(response, res));
+    }
 
 
 }
+
 
 const getTotalJobCount = function (req, res) {
 
@@ -301,6 +332,28 @@ const getTotalJobCount = function (req, res) {
         .finally(() => sendResponse(response, res));
 }
 
+const test = function (req, res) {
+
+    const response = {
+        status: 200,
+        message: ''
+    }
+
+    JOBSEARCH.find().select("location.coordinates")
+        .then(count => {
+            fillResponse(response, 200, count)})
+        .catch((err) => fillResponse(response, 505, err))
+        .finally(() => sendResponse(response, res));
+}
+
+const deCryptSalary = function(cryptedSalary){
+    return crypto.AES.decrypt(cryptedSalary, process.env.ENCRYPT_SECRET_KEY).toString(crypto.enc.Utf8);
+}
+
+const enCryptSalary = function(salary){
+    return crypto.AES.encrypt(salary, process.env.ENCRYPT_SECRET_KEY).toString();
+}
+
 const fillResponse = function (response, status, message) {
     console.log(message);
     response.status = status;
@@ -312,5 +365,6 @@ const sendResponse = function (response, res) {
 }
 
 module.exports = {
-    getAll, add, getById, deleteById, fullUpdate, partialUpdate, geoSearch, getTotalJobCount, getByTitle
+    getAll, add, getById, deleteById, fullUpdate, partialUpdate, 
+    geoSearch, getTotalJobCount, getByTitle, jobWithinMonths,test
 }

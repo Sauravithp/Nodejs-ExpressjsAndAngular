@@ -82,4 +82,11 @@ export class JobsComponent implements OnInit {
     this._router.navigate(["/search/"+this.#searchForm.value.search]);
     
   }
+
+  onOptionsSelected(e: any): void {
+
+    let s = e.target.value;
+    this._router.navigate(["/search/"+s]);
+    console.log(s);
+  }
 }

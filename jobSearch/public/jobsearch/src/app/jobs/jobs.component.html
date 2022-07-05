@@ -12,3 +12,7 @@
     <input formControlName="search" placeholder="search">
     <button type="submit">search</button>
 </form>
+<br/>
+<select (change)="onOptionsSelected($event)">
+    <option *ngFor="let job of jobs" [value]="job.title">{{job.title}}</option>
+</select>

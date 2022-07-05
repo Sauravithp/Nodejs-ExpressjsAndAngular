@@ -19,9 +19,9 @@ const jobSearchSchema=mongoose.Schema({
     salary:Number,
     location: locationSchema,
     postDate: Date,
-    description: String,
-    experience: String,
-    skill:[String]
+    // description: String,
+    // experience: String,
+    // skill:[String]
 });
 
 mongoose.model("JobSearch",jobSearchSchema,process.env.DATABASE_SCHEMA)

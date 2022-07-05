@@ -16,7 +16,7 @@ export class JobComponent implements OnInit {
   constructor(private _jobService: JobDataService, private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const id = this._route.snapshot.params["id"];
+    const id = this._route.snapshot.partams["id"];
     this._jobService.getJobById(id).subscribe((response) => {
       this.job = response;
       this.job.location=new location("test",[1]);

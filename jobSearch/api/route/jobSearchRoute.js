@@ -6,11 +6,15 @@ const jobSearchController=require("../controller/jobsearchController")
 router.route("").get(jobSearchController.getAll)
 .post(jobSearchController.add);
 
+router.route("/geoSearch").get(jobSearchController.geoSearch);
+
 router.route("/count").get(jobSearchController.getTotalJobCount);
 
-router.route("/search/:title").get(jobSearchController.getByTitle);
+router.route("/test").get(jobSearchController.test);
 
-router.route("/geoSearch").get(jobSearchController.geoSearch);
+router.route("/dates").get(jobSearchController.jobWithinMonths);
+
+router.route("/search/:title").get(jobSearchController.getByTitle);
 
 router.route("/:id")
 .get(jobSearchController.getById)
