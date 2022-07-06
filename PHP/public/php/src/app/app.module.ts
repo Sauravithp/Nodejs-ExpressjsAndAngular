@@ -19,6 +19,7 @@ import { SeriesDetailComponent } from './series-detail/series-detail.component';
 import { ReviewDetailComponent } from './review-detail/review-detail.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { HomeComponent } from './home/home.component';
+import { AddReviewComponent } from './add-review/add-review.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { HomeComponent } from './home/home.component';
     SeriesDetailComponent,
     ReviewDetailComponent,
     ReviewsComponent,
-    HomeComponent
+    HomeComponent,
+    AddReviewComponent
     ],
   imports: [
     BrowserModule,
@@ -65,6 +67,10 @@ import { HomeComponent } from './home/home.component';
     {
       path: "reviewDetail/:id",
       component: ReviewDetailComponent
+    },
+    {
+      path: "addReview/:id",
+      component: AddReviewComponent
     }])
   ],
   providers: [],

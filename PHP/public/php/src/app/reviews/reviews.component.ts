@@ -14,7 +14,7 @@ export class ReviewsComponent implements OnInit {
   }
 
   onAdd():void{
-    
+    this._route.navigate(["addReview/:id"]);
   }
 
 }
