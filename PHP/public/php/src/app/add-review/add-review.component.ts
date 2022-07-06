@@ -34,16 +34,16 @@ export class AddReviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.seriesId=this._route.snapshot.params["id"];
+    console.log(this.seriesId);
   }
 
   onAdd():void{
-
-    let review=new AddReview(0,"");
-
+    let review=new AddReview(4,"Better");
+    console.log("request body",review);
     this._service.saveReviewBySeriesId(this.seriesId,review).subscribe({
       next: data=> console.log(data)
     });
-    this._router.navigate(["series/"+this.seriesId]);
+    this._router.navigate(["reviews//"+this.seriesId]);
   }
 
 }

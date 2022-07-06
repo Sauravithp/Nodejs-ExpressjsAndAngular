@@ -20,7 +20,14 @@ export class ReviewDataService {
   }
 
   public saveReviewBySeriesId(id:string,review:AddReview):Observable<Review>{
+    console.log("save review serivce",review.description,review.rating);
+    console.log("inside post review review",review);
     const url=this.#baseUrl+"/"+id+"/reviews";
-    return this._http.post<Review>(url,review);
+    console.log(url);
+    
+    return this._http.post<Review>(url,{
+      'rating':review.rating,
+      'description':review.description
+    });
   }
 }

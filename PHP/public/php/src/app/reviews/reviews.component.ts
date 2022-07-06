@@ -42,12 +42,10 @@ export class ReviewsComponent implements OnInit {
     this._service.getReviewsBySeriesId(this.seriesId).subscribe({
       next: data =>{
         this.reviewResponse=data;
-        console.log(this.reviewResponse);
         console.log(this.reviewResponse._id);
         console.log(JSON.stringify(this.reviewResponse.review));
         this.reviews=JSON.parse(JSON.stringify(this.reviewResponse.review));
         console.log("reviews-->"+this.reviews);
-
       }
     });
   }

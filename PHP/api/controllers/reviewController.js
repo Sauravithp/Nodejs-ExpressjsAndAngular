@@ -14,7 +14,7 @@ const save = function (req, res) {
         console.log(process.env.INVALID_ID_MESSAGE, phpId);
         res.status(process.env.INTERNAL_SERVER_ERROR_STATUS_CODE).json({ 'message': process.env.INTERNAL_SERVER_ERROR });
     } else {
-        PHP.findById(phpId).select("review").exec(function (err, php) {
+        PHP.findById(phpId).exec(function (err, php) {
             if (phpId == null) {
                 console.log("Php not found");
                 response.message = process.env.CONTENT_NOT_FOUND;
@@ -25,6 +25,8 @@ const save = function (req, res) {
                 response.message = process.env.INTERNAL_SERVER_ERROR;
             }
             else {
+                console.log(php);
+                console.log(req.body)
                 __addReview(req, res, php);
             }
             res.status(response.status).json(response.message);
@@ -35,12 +37,15 @@ const save = function (req, res) {
 let __addReview = function (req, res, php) {
     console.log("Inside __addReview");
     console.log(php);
+    console.log(req.body);
+    console.log("rating------>",req.body.rating);
+    console.log("description---->",req.body.description);
     const review = {
         rating: req.body.rating,
         description: req.body.description
     }
+    console.log("ph",php.review)
     php.review.push(review);
-    console.log(review);
     php.save(function (err, phpUpdated) {
         if (err) {
             console.log(process.env.ERROR, err);
@@ -210,6 +215,8 @@ let deleteReviewById = function (req, res) {
                 response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
                 response.message = process.env.CONTENT_NOT_FOUND;
             } else {
+                console.log(reviewId);
+                console.log("test---->",php.review.id(reviewId))
                 php.review.id(reviewId).remove();
                 php.save(function(err,updated){
                     if (err) {
