@@ -36,7 +36,7 @@ import { HomeComponent } from './home/home.component';
     ReviewDetailComponent,
     ReviewsComponent,
     HomeComponent
-  ],
+    ],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -55,16 +55,16 @@ import { HomeComponent } from './home/home.component';
     {
       path: "search",
       component: SearchComponent
-    },{
-      path:"series/:id",
+    }, {
+      path: "series/:id",
       component: SeriesDetailComponent
-    },{
-      path:"reviews/:id",
-      component:ReviewsComponent
+    }, {
+      path: "reviews/:id",
+      component: ReviewsComponent
     },
     {
-      path:"reviewDetail/:id",
-      component:ReviewDetailComponent
+      path: "reviewDetail/:id",
+      component: ReviewDetailComponent
     }])
   ],
   providers: [],
