@@ -10,6 +10,8 @@ let response = {
 
 let getAll = function (req, res) {
 
+    console.log("inside get all");
+
     if (isNaN(req.query.offset) || isNaN(req.query.count)) {
         res.status(400).json({"message": "QueryString Offset and Count should be numbers"});
         return;

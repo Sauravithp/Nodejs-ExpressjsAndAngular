@@ -1,6 +1,6 @@
-
+<br/>
 <ul>
-    <li><a routerLink="/reviewDetail/:id">star</a></li>
+    <li *ngFor="let review of reviews">{{review.rating}} - {{review.description}}</li>
 </ul>
 
-<button (click)="onAdd()">Add</button>
+<button (click)="onAdd()">Add Review</button>

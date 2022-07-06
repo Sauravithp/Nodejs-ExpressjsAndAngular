@@ -1,4 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Review } from '../series/series.component';
+import { ReviewDataService } from '../service/review-data.service';
+
+export class AddReview {
+  #rating!: number;
+  #description!: string;
+
+  constructor(rating: number, description: string) {
+    this.#rating = rating;
+    this.#description = description;
+  }
+
+  get rating() {
+    return this.#rating;
+  }
+  get description() {
+    return this.#description;
+  }
+
+}
 
 @Component({
   selector: 'app-add-review',
@@ -7,9 +28,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddReviewComponent implements OnInit {
 
-  constructor() { }
+  seriesId!:string;
+
+  constructor(private _service:ReviewDataService,private _route:ActivatedRoute,private _router:Router) { }
 
   ngOnInit(): void {
+    this.seriesId=this._route.snapshot.params["id"];
+  }
+
+  onAdd():void{
+
+    let review=new AddReview(0,"");
+
+    this._service.saveReviewBySeriesId(this.seriesId,review).subscribe({
+      next: data=> console.log(data)
+    });
+    this._router.navigate(["series/"+this.seriesId]);
   }
 
 }

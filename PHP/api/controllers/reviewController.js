@@ -76,7 +76,7 @@ let getAll = function (req, res) {
                 console.log(reviews);
                 response.message = reviews;
             }
-            res.status(response.status).json({ 'message': response.message });
+            res.status(response.status).json(response.message);
         })
     }
 }

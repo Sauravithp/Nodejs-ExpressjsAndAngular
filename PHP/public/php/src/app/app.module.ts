@@ -61,7 +61,7 @@ import { AddReviewComponent } from './add-review/add-review.component';
       path: "series/:id",
       component: SeriesDetailComponent
     }, {
-      path: "reviews/:id",
+      path: "reviews/:seriesId",
       component: ReviewsComponent
     },
     {

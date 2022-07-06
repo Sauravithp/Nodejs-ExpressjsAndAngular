@@ -1,5 +1,28 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Review } from '../series/series.component';
+import { ReviewDataService } from '../service/review-data.service';
+
+export class ReviewResponse {
+  #_id!: string;
+  #review!: [Review];
+
+  constructor(_id: string, review: [Review], ) {
+    this.#_id = _id;
+    this.#review = review;
+ 
+  }
+
+  get _id() {
+    return this.#_id;
+  }
+  get review() {
+    return this.#review;
+  }
+  
+
+}
 
 @Component({
   selector: 'app-reviews',
@@ -8,13 +31,29 @@ import { Router } from '@angular/router';
 })
 export class ReviewsComponent implements OnInit {
 
-  constructor(private _route:Router) { }
+  reviews:Review[]=[];
+  reviewResponse!:ReviewResponse;
+   seriesId!:string;
+
+  constructor(private _router:Router,private _service:ReviewDataService,private _route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.seriesId=this._route.snapshot.params["seriesId"];
+    this._service.getReviewsBySeriesId(this.seriesId).subscribe({
+      next: data =>{
+        this.reviewResponse=data;
+        console.log(this.reviewResponse);
+        console.log(this.reviewResponse._id);
+        console.log(JSON.stringify(this.reviewResponse.review));
+        this.reviews=JSON.parse(JSON.stringify(this.reviewResponse.review));
+        console.log("reviews-->"+this.reviews);
+
+      }
+    });
   }
 
   onAdd():void{
-    this._route.navigate(["addReview/:id"]);
+    this._router.navigate(["addReview/"+this.seriesId]);
   }
 
 }

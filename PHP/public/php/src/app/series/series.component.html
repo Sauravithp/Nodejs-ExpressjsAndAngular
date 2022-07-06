@@ -3,5 +3,5 @@
 <br>
 <p>The list of available series are:</p>
 <ul>
-    <li ><a routerLink="/series/id">Test</a></li>
+    <li *ngFor="let series of seriesList"><a routerLink="/series/{{series._id}}">{{series.name}}</a></li>
 </ul>
