@@ -21,4 +21,10 @@ export class SeriesDataService {
     const url=this.#baseUrl+"/"+id;
     return this._http.get<Series>(url);
   }
+
+  public getSeriesByName(name:string):Observable<Series>{
+    console.log("name--->",name)
+    const url=this.#baseUrl+"/search/"+name;
+    return this._http.get<Series>(url);
+  }
 }

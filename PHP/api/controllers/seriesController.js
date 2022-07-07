@@ -229,9 +229,38 @@ let updateAll = function (req, res) {
     }
 }
 
+let getSeriesByName = function (req, res) {
+
+    const seriesName = req.params.name;
+    if (!req.params.name) {
+        console.log("Search data not valid");
+        res.status(process.env.INTERNAL_SERVER_ERROR_STATUS_CODE)
+            .json({ 'message': "Search data not valid" });
+    } else {
+        SERIES.findOne({name:seriesName}).exec(function (err, series) {
+            if (err) {
+                console.log(process.env.ERROR, err);
+                response.status = process.env.INTERNAL_SERVER_ERROR_STATUS_CODE;
+                response.message = process.env.INTERNAL_SERVER_ERROR;
+            }else if(series==null){
+                console.log("Series not found");
+                response.message = process.env.CONTENT_NOT_FOUND;
+                response.status = process.env.CONTENT_NOT_FOUND_STATUS_CODE;
+            }else {
+                console.log(process.env.SERIES_FOUND);
+                console.log(series);
+                response.message = series;
+            }
+            res.status(response.status).json(response.message);
+        });
+
+    }
+}
+
+
 
 
     module.exports = { getAll, getSeriesById,
          save, 
          deleteSeries,
-         update,updateAll }
+         update,updateAll,getSeriesByName}

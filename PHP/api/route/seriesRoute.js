@@ -15,6 +15,9 @@ Router.route(process.env.SERIES_URL + process.env.PATH_ID_PARAMS)
     .patch(seriesController.update)
     .put(seriesController.updateAll);
 
+Router.route(process.env.SERIES_URL + "/search"+"/:name")
+    .get(seriesController.getSeriesByName);
+
 Router.route(process.env.SERIES_URL + process.env.PHP_PATH_ID_PARAMS + process.env.REVIEW_URL)
     .post(reviewController.save)
     .get(reviewController.getAll)

@@ -1,12 +1,11 @@
 <br/>
-<form>
-    
+<form [formGroup]="searchForm" (ngSubmit)="onSearch()">
     <div>
-        <input placeholder="presentYear"><button>Search</button>
+        <input formControlName="search" placeholder="search"><button>Search</button>
     </div>
 </form>
 <br/>
 <ul>
-    <a routerLink="/series/id">Test</a>
+    <a routerLink="/series/{{series._id}}">{{series.name}}</a>
 </ul>
 
