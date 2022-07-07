@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Review } from '../series/series.component';
 import { ReviewDataService } from '../service/review-data.service';
 
 export class AddReview {
@@ -43,7 +42,7 @@ export class AddReviewComponent implements OnInit {
     this._service.saveReviewBySeriesId(this.seriesId,review).subscribe({
       next: data=> console.log(data)
     });
-    this._router.navigate(["reviews//"+this.seriesId]);
+    this._router.navigate(["reviews/"+this.seriesId]);
   }
 
 }

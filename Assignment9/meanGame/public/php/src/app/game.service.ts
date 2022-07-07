@@ -12,7 +12,7 @@ export class GameService {
    #baseUrl="http://localhost:3000/api/games";
 
 
-  constructor(privapte _http:HttpClient) { }
+  constructor(private _http:HttpClient) { }
 
   public getGames():Observable<Game[]>{
     return this._http.get<Game[]>(this.#baseUrl);

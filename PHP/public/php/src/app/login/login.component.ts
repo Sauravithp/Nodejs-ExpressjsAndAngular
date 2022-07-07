@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { UsersDataService } from '../users-data.service';
-
+import { Route, Router } from '@angular/router';
+import { UserDetailService } from '../service/user-detail.service';
 
 export class Credentails {
   username: string;
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   user: Credentails = new Credentails("sauravi", "jill");
 
-  constructor(private service:UsersDataService) {
+  constructor(private service:UserDetailService,private _router:Router) {
   }
 
   ngOnInit(): void {
@@ -40,13 +40,15 @@ export class LoginComponent implements OnInit {
     // console.log(this.user.username," ",this.user.password );
     console.log(this.loginForm.value);
      const login:Credentails=new Credentails(this.loginForm.value.username,this.loginForm.value.password)
-    this.service.login(login).subscribe({
-      next: loginResult=>{},
-      error: error=>{},
-      complete: ()=>{
+    // this.service.login(login).subscribe({
+    //   next: loginResult=>{},
+    //   error: error=>{},
+    //   complete: ()=>{
         
-      }
-    });
+    //   }
+    // });
+      this._router.navigate([""]);
   }
 
 }
+

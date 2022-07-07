@@ -26,7 +26,6 @@ const save = function (req, res) {
             }
             else {
                 console.log(php);
-                console.log(req.body)
                 __addReview(req, res, php);
             }
             res.status(response.status).json(response.message);
@@ -37,7 +36,6 @@ const save = function (req, res) {
 let __addReview = function (req, res, php) {
     console.log("Inside __addReview");
     console.log(php);
-    console.log(req.body);
     console.log("rating------>",req.body.rating);
     console.log("description---->",req.body.description);
     const review = {

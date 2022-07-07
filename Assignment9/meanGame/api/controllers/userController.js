@@ -36,7 +36,10 @@ const adduser = function (req, res) {
                             response.status = 500;
                             response.message = "Internal Server error";
                         }).finally(() => {
+                            console.log("Inside line 39");
                             res.status(response.status).json(response.message);
+                            console.log("Inside line 41");
+                            return;
                         })
                 })
                 .catch((err) => {
@@ -47,6 +50,7 @@ const adduser = function (req, res) {
 
                 if (response.status != 201) {
                     res.status(response.status).json(response.message);
+                    return;
                 }
                 
         }).catch(err => {
@@ -57,9 +61,8 @@ const adduser = function (req, res) {
 
         if (response.status != 201) {
             res.status(response.status).json(response.message);
+            return;
         }
-
-
     } else {
         console.log("Username and password not found");
         response.status = 400;
@@ -68,16 +71,37 @@ const adduser = function (req, res) {
 
     if (response.status != 201) {
         res.status(response.status).json(response.message);
+        return;
+
     }
 
 };
 
 
+const login=function(req,res){
+    console.log("Login controller called");
+    const response={
+        status:200,
+        message:''
+    }
+    
+    if (req.body && req.body.username && req.body.password) {
+        USER.findOne({username:req.body.username})
+        .then((user)=>{})
+        .catch((err)=>{response.status=500; response.message=err})
+        .finally(()=> {res.statu(response.status).json(response.message);} );
+    }else{
+        response.status=400,
+        response.message="username and password missing"
+        res.statu(response.status).json(response.message);
+    }
+}
 
 
 
 
-module.exports = { adduser }
+
+module.exports = { adduser,login }
 
 
 

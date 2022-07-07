@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Credentails } from './login/login.component';
+import { Credentails } from '../login/login.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersDataService {
+export class UserDetailService {
 
   #baseUrl="http://localhost:3000/api/users";
 
@@ -21,4 +21,5 @@ export class UsersDataService {
     const url=this.#baseUrl+"/login";
     return this._http.post<any>(url,user);
   }
+
 }
