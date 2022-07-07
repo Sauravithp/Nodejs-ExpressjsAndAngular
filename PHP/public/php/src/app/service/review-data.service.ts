@@ -19,6 +19,11 @@ export class ReviewDataService {
     return this._http.get<ReviewResponse>(url);
   }
 
+  public deletetReviewsBySeriesId(seriesId:string,reviewId:string):Observable<ReviewResponse>{
+    const url=this.#baseUrl+"/"+seriesId+"/reviews/"+reviewId;
+    return this._http.delete<ReviewResponse>(url);
+  }
+
   public saveReviewBySeriesId(id:string,review:AddReview):Observable<Review>{
     console.log("save review serivce",review.description,review.rating);
     console.log("inside post review review",review);

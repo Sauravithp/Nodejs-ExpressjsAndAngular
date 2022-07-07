@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReviewDataService } from '../service/review-data.service';
 
@@ -29,15 +30,24 @@ export class AddReviewComponent implements OnInit {
 
   seriesId!:string;
 
+  @ViewChild("addReviewForm")
+  addReviewForm!:NgForm;
+
   constructor(private _service:ReviewDataService,private _route:ActivatedRoute,private _router:Router) { }
 
   ngOnInit(): void {
     this.seriesId=this._route.snapshot.params["id"];
     console.log(this.seriesId);
+    console.log("init called");
+    let review=new AddReview(0,"");
+    setTimeout(() => {
+      this.addReviewForm.setValue(review);
+    }, 0);
   }
-
-  onAdd():void{
-    let review=new AddReview(4,"Better");
+  
+  addReview():void{
+    console.log(this.addReviewForm.value);
+    let review=new AddReview(this.addReviewForm.value.rating,this.addReviewForm.value.description);
     console.log("request body",review);
     this._service.saveReviewBySeriesId(this.seriesId,review).subscribe({
       next: data=> console.log(data)

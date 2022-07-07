@@ -1,6 +1,6 @@
 <br/>
 <ul>
-    <li *ngFor="let review of reviews">{{review.rating}} - {{review.description}}</li>
+    <li *ngFor="let review of reviews">{{review.rating}} - {{review.description}}  <button (click)="onDelete(review._id)">Delete</button></li>
 </ul>
 
 <button (click)="onAdd()">Add Review</button>

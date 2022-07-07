@@ -1,14 +1,14 @@
 <br/>
-<form>
+<form #addReviewForm="ngForm" (ngSubmit)="addReview()">
     <div>
         <label>Rating: </label>
-        <input placeholder="name">
+        <input name="rating" placeholder="rating" ngModel>
     </div>
     <br/>
     <div>
         <label>Description: </label>
-        <input placeholder="language">
+        <input name="description" placeholder="description" ngModel>
     </div>
     <br/>
-    <button (click)="onAdd()">Add</button>
+    <button>Add</button>
 </form>

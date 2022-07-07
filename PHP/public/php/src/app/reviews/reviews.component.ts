@@ -54,4 +54,15 @@ export class ReviewsComponent implements OnInit {
     this._router.navigate(["addReview/"+this.seriesId]);
   }
 
+  onDelete(id:string):void{
+   console.log(this.seriesId)
+   this._service.deletetReviewsBySeriesId(this.seriesId,id).subscribe({
+    next: data=>{
+      console.log(data);
+      this._router.navigate(["/series/"+this.seriesId]);
+    }
+   });
+
+  }
+
 }
